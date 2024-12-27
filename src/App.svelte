@@ -157,6 +157,7 @@
     let vendorLogo = "";
     if (qry.vendorLogo.length > 100) {
       vendorLogo = qry.vendorLogo;
+      qry.vendorLogo = ""
     }
     Object.entries(qry).forEach(([key, value]) => {
       if (Array.isArray(value)) {
@@ -200,10 +201,10 @@
 
 <div class="flex flex-wrap justify-center px-2 py-4 lg:py-6 gap-4 print:hidden">
   {#each Object.keys(trn.docs) as doc}
-    <button class="font-medium text-lg border-b-2 border-cyan-500 {qry.doc == doc ? 'text-cyan-500 border-transparent' : 'hocus:text-cyan-500 hocus:border-transparent'}" onclick={() => { qry.doc = doc; qry.whtRate = ['receipt'].includes(qry.doc) ? 0.01 : 0 }} >{trn.docs[doc].title}</button>
+    <button class="font-medium text-lg border-b-2 border-cyan-500 cursor-pointer {qry.doc == doc ? 'text-cyan-500 border-transparent' : 'hover:text-cyan-500 hover:border-transparent'}" onclick={() => { qry.doc = doc; qry.whtRate = ['receipt'].includes(qry.doc) ? 0.01 : 0 }} >{trn.docs[doc].title}</button>
   {/each}
   {#each Object.keys(trns) as locale}
-    <button class="font-semibold text-lg border-b-2 border-green-500 {qry.lang == locale ? 'text-green-500 border-transparent' : 'hocus:text-green-500 hocus:border-transparent'}" onclick={() => { qry.lang = locale }} >{trns[locale].title}</button>
+    <button class="font-semibold text-lg border-b-2 border-green-500 cursor-pointer {qry.lang == locale ? 'text-green-500 border-transparent' : 'hover:text-green-500 hover:border-transparent'}" onclick={() => { qry.lang = locale }} >{trns[locale].title}</button>
   {/each}
 </div>
 
@@ -300,7 +301,7 @@
         <tr class="border-y border-neutral-400">
           <td class="">
             <span class="hidden print:inline">{qry.desc[index]}</span>
-            <input class="bg-transparent border-0 p-0 print:hidden w-80" bind:value={qry.desc[index]}>
+            <input class="bg-transparent border-0 p-0 print:hidden w-full" bind:value={qry.desc[index]}>
           </td>
           <td class="text-center">
             <span class="hidden print:inline">{qry.qty[index]}</span>
@@ -365,9 +366,9 @@
 </div>
 
 <div class="flex flex-wrap justify-center px-2 py-4 lg:py-6 gap-4 print:hidden">
-  <button class="font-semibold text-lg border-b-2 border-neutral-500 hocus:text-green-500 hocus:border-transparent" onclick={() => { qry.price.push(''); qry.qty.push(''); qry.desc.push(''); }} >{trn.more}</button>
-  <button class="font-semibold text-lg border-b-2 border-neutral-500 hocus:text-neutral-500 hocus:border-transparent" onclick={() => { clear() }} >{trn.clear}</button>
-  <button class="font-semibold text-lg border-b-2 border-cyan-500 hocus:text-cyan-500 hocus:border-transparent" onclick={() => { done(); }} >{trn.copy}</button>
-  <button class="font-semibold text-lg border-b-2 border-green-500 hocus:text-green-500 hocus:border-transparent" onclick={() => { print() }} >{trn.print}</button>
+  <button class="font-semibold text-lg border-b-2 border-neutral-500 hover:text-green-500 hover:border-transparent cursor-pointer" onclick={() => { qry.price.push(''); qry.qty.push(''); qry.desc.push(''); }} >{trn.more}</button>
+  <button class="font-semibold text-lg border-b-2 border-neutral-500 hover:text-neutral-500 hover:border-transparent cursor-pointer" onclick={() => { clear() }} >{trn.clear}</button>
+  <button class="font-semibold text-lg border-b-2 border-cyan-500 hover:text-cyan-500 hover:border-transparent cursor-pointer" onclick={() => { done(); }} >{trn.copy}</button>
+  <button class="font-semibold text-lg border-b-2 border-green-500 hover:text-green-500 hover:border-transparent cursor-pointer" onclick={() => { print() }} >{trn.print}</button>
 </div>
 
