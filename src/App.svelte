@@ -8,7 +8,6 @@
       clear: "Clear",
       more: "Add",
       print: "Print",
-      desc: "interactive invoice to edit and print",
       docs: {
         "": {
           title: "invoice",
@@ -55,7 +54,6 @@
       clear: "ล้าง",
       more: "เพิ่ม",
       print: "ปริ้น",
-      desc: "พิมพ์ ใบแจ้งหนี้ แก้ไข และปริ้น",
       docs: {
         "": {
           title: "ใบแจ้งหนี้",
@@ -101,17 +99,23 @@
         cashSale: {
           title: "บิลเงินสด",
           vendorSign: "ลายเซ็นผู้รับเงิน"
+        },
+        quotation: {
+          title: "ใบเสนอราคา",
         }
       }
     }
   };
+  let currentDate = new Date()
+  let nextMonthDate = new Date(currentDate)
+  nextMonthDate.setMonth(currentDate.getMonth() + 1)
 
   let qry = $state({
     lang: "en",
     doc: "",
     no: "____",
-    date: "________",
-    dueDate: "________",
+    date: currentDate.toJSON().split('T')[0],
+    dueDate: nextMonthDate.toJSON().split('T')[0],
     payMethod: "________",
     vendor: "____",
     vendorid: "____",
@@ -152,7 +156,7 @@
     return amount;
   })
 
-  function done() {
+  function done () {
     const searchParams = new URLSearchParams();
     let vendorLogo = "";
     if (qry.vendorLogo.length > 100) {
@@ -171,17 +175,14 @@
       "https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString()
     );
   }
-  function clear() {
+  function clear () {
     qry = { ...qry, lang: qry.lang, doc: qry.doc };
   }
-  function formatNumber(number, option) {
-    return number == 0
-      ? ""
-      : number.toLocaleString(qry.lang, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-          ...option
-        });
+  function formatNumber (number, option) {
+    return number == 0 ? "" : number.toLocaleString(qry.lang, { minimumFractionDigits: 2, maximumFractionDigits: 2, ...option });
+  }
+  function formatDate (value, option) {
+    return new Date(value).toLocaleDateString(qry.lang, { day: 'numeric', month: 'short', year: 'numeric' , ...option })
   }
   
   onMount(() => {
@@ -271,14 +272,14 @@
       </div>
       <div class="flex gap-2">
         <div class="">{txt.date}</div>
-        <div class="grow hidden print:block">{qry.date}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.date} />
+        <div class="grow hidden print:block">{formatDate(qry.date)}</div>
+        <input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.date} />
       </div>
-      {#if !['receipt'].includes(qry.doc)}  
+      {#if !['receipt'].includes(qry.doc)}
         <div class="flex gap-2">
           <div class="">{txt.dueDate}</div>
-          <div class="grow hidden print:block">{qry.dueDate}</div>
-          <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.dueDate} />
+          <div class="grow hidden print:block">{formatDate(qry.dueDate)}</div>
+          <input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.dueDate} />
         </div>
       {/if}
       <div class="">{txt.payMethod}</div>
