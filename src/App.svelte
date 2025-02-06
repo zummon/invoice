@@ -29,14 +29,11 @@
     note: "________"
   });
 
-  let trn = $derived.by(() => {
+  let txt = $derived.by(() => {
     let trn = trns.en;
     if (trns[qry.lang]) {
       trn = { ...trn, ...trns[qry.lang] };
     }
-    return trn;
-  })
-  let txt = $derived.by(() => {
     let txt = trns.en.docs[""];
     if (trn.docs[qry.doc]) {
       txt = { ...txt, ...trn.docs[""], ...trn.docs[qry.doc] };
@@ -83,9 +80,7 @@
       }
     });
     qry.vendorLogo = vendorLogo;
-    navigator.clipboard.writeText(
-      "https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString()
-    );
+    navigator.clipboard.writeText("https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString());
   }
   onMount(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -103,22 +98,23 @@
 </script>
 
 <div class="flex flex-wrap justify-center px-2 py-4 lg:py-6 gap-4 print:hidden">
-  {#each Object.keys(trn.docs) as doc}
-    <button class="font-medium text-lg border-b-2 border-cyan-500 cursor-pointer {qry.doc == doc ? 'text-cyan-500 border-transparent' : 'hover:text-cyan-500 hover:border-transparent'}" onclick={() => { 
-			qry.doc = doc; 
-			qry.whtRate = ['receipt'].includes(qry.doc) ? 0.01 : 0 
-		}}>{trn.docs[doc].title}</button>
-  {/each}
-  {#each Object.keys(trns) as locale}
-    <button class="font-semibold text-lg border-b-2 border-green-500 cursor-pointer {qry.lang == locale ? 'text-green-500 border-transparent' : 'hover:text-green-500 hover:border-transparent'}" onclick={() => { 
+	{#each Object.keys(trns) as locale}
+		{#each Object.keys(trns[locale].docs) as doc}
+			<button class="font-medium text-lg cursor-pointer {qry.doc == doc ? 'text-neutral-500' : 'text-cyan-500'} {qry.lang == locale ? '' : 'hidden'}" onclick={() => {
+				qry.lang = locale
+				qry.doc = doc; 
+				qry.whtRate = ['receipt'].includes(qry.doc) ? 0.01 : 0 
+			}}>{trns[locale].docs[doc].title}</button>
+		{/each}
+    <button class="font-semibold text-lg cursor-pointer order-last {qry.lang == locale ? 'text-neutral-500' : 'text-green-500'}" onclick={() => {
 			qry.lang = locale 
-		}} >{trns[locale].title}</button>
+		}}>{trns[locale].title}</button>
   {/each}
 </div>
 
 <div class="max-w-screen-lg mx-auto p-2 print:p-0">
   <div class="flex flex-wrap gap-2">
-    <label class="{qry.vendorLogo ? '' : 'print:hidden'}">
+    <label class="cursor-pointer {qry.vendorLogo ? '' : 'print:hidden'}">
       <input class="hidden" type="file" onchange={(e) => {
         const file = e.target.files[0];
         if (file) {
@@ -286,7 +282,7 @@
 			<path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
 		</svg>
 	</button>
-  <button class="text-cyan-500 cursor-pointer" title="Copy" onclick={() => { saveLink() }}>
+  <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { saveLink() }}>
 		<!-- https://heroicons.com/solid document-duplicate -->
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8">
 			<path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />

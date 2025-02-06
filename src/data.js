@@ -1,10 +1,6 @@
 export let trns = {
 	en: {
 		title: "English",
-		copy: "Copy",
-		clear: "Clear",
-		more: "Add",
-		print: "Print",
 		docs: {
 			"": {
 				title: "invoice",
@@ -47,10 +43,6 @@ export let trns = {
 	},
 	th: {
 		title: "ไทย",
-		copy: "สำเนา",
-		clear: "ล้าง",
-		more: "เพิ่ม",
-		print: "ปริ้น",
 		docs: {
 			"": {
 				title: "ใบแจ้งหนี้",
