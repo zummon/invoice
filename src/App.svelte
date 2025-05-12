@@ -246,7 +246,7 @@
 
 <div class="p-4 print:hidden text-center">
 	<div class="truncate underline text-cyan-500">
-		<a class="" href={sharedUrl}>{sharedUrl}</a>
+		<a class="" target="_top" href={sharedUrl}>{sharedUrl}</a>
 	</div>
 	Select text you want to edit then type directly.<br>
 	Click the logo to upload yours
