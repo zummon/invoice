@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-	let trns = {
+	const trns = {
 		en: {
 			title: "English",
 			docs: {
@@ -102,16 +102,16 @@
   let nextMonthDate = new Date(currentDate)
   nextMonthDate.setMonth(currentDate.getMonth() + 1)
 
-  let qry = $state({
-    lang: "en",
+	const org = {
+		lang: "en",
     doc: "",
     no: "____",
     date: currentDate.toJSON().split('T')[0],
     dueDate: nextMonthDate.toJSON().split('T')[0],
     payMethod: "________",
-    vendor: "____",
-    vendorid: "____",
-    vendorAddress: "________",
+    vendor: "",
+    vendorid: "",
+    vendorAddress: "",
     vendorLogo: "",
     client: "____",
     clientid: "____",
@@ -123,7 +123,9 @@
     whtRate: "0.00",
     adjust: "",
     note: "________"
-  });
+	}
+
+  let qry = $state(org);
 
   let txt = $derived.by(() => {
     let trn = trns.en;
@@ -146,7 +148,8 @@
   })
 
   function formatNumber (value, option) {
-    return (+value) == 0 ? "" : (+value).toLocaleString(qry.lang, { minimumFractionDigits: 2, maximumFractionDigits: 2, ...option });
+		value = +value
+    return value == 0 ? "" : value.toLocaleString(qry.lang, { minimumFractionDigits: 2, maximumFractionDigits: 2, ...option });
   }
   function formatDate (value, option) {
     return new Date(value).toLocaleDateString(qry.lang, { day: 'numeric', month: 'short', year: 'numeric' , ...option })
@@ -175,7 +178,7 @@
 		qry.desc.splice(index, 1); 
 	}
   function clearForm () {
-    qry = { ...qry, lang: qry.lang, doc: qry.doc };
+    qry = { ...org, lang: qry.lang, doc: qry.doc };
   }
   function saveLink () {
     const searchParams = new URLSearchParams();
@@ -197,7 +200,7 @@
   onMount(() => {
     const searchParams = new URLSearchParams(location.search);
 
-    Object.entries(qry).forEach(([key, value]) => {
+    Object.entries(org).forEach(([key, value]) => {
       if (searchParams.has(key)) {
         if (Array.isArray(value)) {
           qry[key] = searchParams.get(key).split(",");
@@ -222,11 +225,9 @@
 			qry.lang = locale 
 		}}>{trns[locale].title}</button>
   {/each}
-  <button class="text-neutral-500 cursor-pointer" title="Clear forms" onclick={() => { clearForm() }}>
-		<!-- https://heroicons.com/solid trash -->
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8">
-			<path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
-		</svg>
+  <button class="text-cyan-500 cursor-pointer" title="Clear forms" onclick={() => { clearForm() }}>
+		<!-- https://fonts.google.com/icons?selected=Material+Symbols+Outlined:ink_eraser:FILL@0;wght@400;GRAD@0;opsz@40&icon.query=eraser&icon.size=32&icon.color=currentColor -->
+		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M682-226.67h198.67V-160H615.33L682-226.67ZM182.67-160l-82.34-84.33q-19.66-19-19.5-46.67.17-27.67 18.5-47l452-484q18.34-19.33 45.88-19.33 27.55 0 46.46 19l203 209.66q19 19 19.66 47 .67 28-18.33 47L508.67-160h-326ZM482-226.67l320.67-342-204-210.66L148-292l64 65.33h270ZM480-480Z"/></svg>
 	</button>
   <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { saveLink() }}>
 		<!-- https://heroicons.com/solid document-duplicate -->
@@ -251,24 +252,18 @@
 <div class="max-w-3xl p-8 mx-auto bg-white shadow-md print:p-0 print:shadow-none" style='font-family: "Noto Serif Thai", serif;'>
   <div class="flex flex-wrap gap-2">
     <label class="cursor-pointer {qry.vendorLogo ? '' : 'print:hidden'}">
-      <input class="hidden" type="file" onchange={(e) => {uploadLogo(e)}} />
+      <input class="hidden" type="file" onchange={(e) => { uploadLogo(e) }} />
       <img class="max-h-20" src={qry.vendorLogo} alt={txt.vendorLogo} />
     </label>
     <div class="">
-      <div class="flex gap-2">
-        <div class="">{txt.vendor}</div>
-        <div class="grow hidden print:block">{qry.vendor}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.vendor} />
+      <div class="">
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.vendor} bind:value={qry.vendor} />
       </div>
-      <div class="flex gap-2">
-        <div class="">{txt.vendorid}</div>
-        <div class="grow hidden print:block">{qry.vendorid}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.vendorid} />
+      <div class="">
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.vendorid} bind:value={qry.vendorid} />
       </div>
-      <div class="flex gap-2">
-        <div class="">{txt.vendorAddress}</div>
-        <div class="grow hidden print:block">{qry.vendorAddress}</div>
-        <textarea class="grow bg-transparent border-0 p-0 print:hidden" bind:value={qry.vendorAddress}></textarea>
+      <div class="">
+        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={txt.vendorAddress} bind:value={qry.vendorAddress}></textarea>
       </div>
     </div>
   </div>
