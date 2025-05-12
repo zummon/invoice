@@ -114,8 +114,8 @@
     vendorAddress: "",
     vendorLogo: "",
     client: "____",
-    clientid: "____",
-    clientAddress: "________",
+    clientid: "",
+    clientAddress: "",
     desc: ["", "", "", ""],
     price: ["", "", "", ""],
     qty: ["", "", "", ""],
@@ -126,6 +126,7 @@
 	}
 
   let qry = $state(org);
+	let sharedUrl = $state('')
 
   let txt = $derived.by(() => {
     let trn = trns.en;
@@ -179,6 +180,7 @@
 	}
   function clearForm () {
     qry = { ...org, lang: qry.lang, doc: qry.doc };
+		sharedUrl = ''
   }
   function saveLink () {
     const searchParams = new URLSearchParams();
@@ -195,7 +197,8 @@
       }
     });
     qry.vendorLogo = vendorLogo;
-    navigator.clipboard.writeText("https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString());
+		sharedUrl = "https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString()
+    navigator.clipboard.writeText(sharedUrl);
   }
   onMount(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -230,11 +233,8 @@
 		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M682-226.67h198.67V-160H615.33L682-226.67ZM182.67-160l-82.34-84.33q-19.66-19-19.5-46.67.17-27.67 18.5-47l452-484q18.34-19.33 45.88-19.33 27.55 0 46.46 19l203 209.66q19 19 19.66 47 .67 28-18.33 47L508.67-160h-326ZM482-226.67l320.67-342-204-210.66L148-292l64 65.33h270ZM480-480Z"/></svg>
 	</button>
   <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { saveLink() }}>
-		<!-- https://heroicons.com/solid document-duplicate -->
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8">
-			<path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
-			<path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
-		</svg>		
+		<!-- https://fonts.google.com/icons?icon.query=link&icon.size=32&icon.color=currentColor&icon.style=Rounded&selected=Material+Symbols+Rounded:link:FILL@0;wght@400;GRAD@0;opsz@40 -->
+		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h133.33q14.17 0 23.75 9.62 9.59 9.61 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280q-55.56 0-94.44 38.84-38.89 38.84-38.89 94.33 0 55.49 38.89 94.49 38.88 39 94.44 39h133.33q14.17 0 23.75 9.62 9.59 9.62 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280Zm76.67-166.67q-14.17 0-23.75-9.61-9.59-9.62-9.59-23.84 0-14.21 9.59-23.71 9.58-9.5 23.75-9.5h246.66q14.17 0 23.75 9.61 9.59 9.62 9.59 23.84 0 14.21-9.59 23.71-9.58 9.5-23.75 9.5H356.67Zm190 166.67q-14.17 0-23.75-9.62-9.59-9.61-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q55.56 0 94.44-38.84 38.89-38.84 38.89-94.33 0-55.49-38.89-94.49-38.88-39-94.44-39H546.67q-14.17 0-23.75-9.62-9.59-9.62-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H546.67Z"/></svg>
 	</button>
   <button class="text-green-500 cursor-pointer" title="Print" onclick={() => { print() }} >
 		<!-- https://heroicons.com/solid printer -->
@@ -245,6 +245,9 @@
 </div>
 
 <div class="p-4 print:hidden text-center">
+	<div class="truncate underline text-cyan-500">
+		<a class="" href={sharedUrl}>{sharedUrl}</a>
+	</div>
 	Select text you want to edit then type directly.<br>
 	Click the logo to upload yours
 </div>
@@ -272,26 +275,24 @@
     <div class="grow">
       <div class="flex gap-2">
         <div class="">{txt.client}</div>
-        <div class="grow hidden print:block">{qry.client}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.client} />
+        <div class="">
+					<input class="bg-transparent border-0 p-0 field-sizing-content" type="text" bind:value={qry.client} />
+				</div>
       </div>
-      <div class="flex gap-2">
-        <div class="">{txt.clientid}</div>
-        <div class="grow hidden print:block">{qry.clientid}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.clientid} />
+      <div class="">
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.clientid} bind:value={qry.clientid} />
       </div>
-      <div class="flex gap-2">
-        <div class="">{txt.clientAddress}</div>
-        <div class="grow hidden print:block">{qry.clientAddress}</div>
-        <textarea class="grow bg-transparent border-0 p-0 print:hidden" bind:value={qry.clientAddress}></textarea>
+      <div class="">
+        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={txt.clientAddress} bind:value={qry.clientAddress}></textarea>
       </div>
     </div>
     <div class="">
       <h1 class="text-2xl">{txt.title}</h1>
       <div class="flex gap-2">
         <div class="">{txt.no}</div>
-        <div class="grow hidden print:block">{qry.no}</div>
-        <input class="grow bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.no} />
+        <div class="">
+					<input class="bg-transparent border-0 p-0 field-sizing-content" type="text" bind:value={qry.no} />
+				</div>
       </div>
       <div class="flex gap-2">
         <div class="">{txt.date}</div>
@@ -306,8 +307,7 @@
         </div>
       {/if}
       <div class="">{txt.payMethod}</div>
-      <div class="hidden print:block">{qry.payMethod}</div>
-      <textarea class="w-full bg-transparent border-0 p-0 print:hidden" bind:value={qry.payMethod}></textarea>
+      <textarea class="w-full bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" bind:value={qry.payMethod}></textarea>
     </div>
   </div>
 
@@ -335,9 +335,9 @@
           <td class="text-right p-1">
 						&nbsp;<span class="">{formatNumber(+qry.qty[index] * +qry.price[index])}</span>
 						<button class="text-red-500 cursor-pointer print:hidden" title="Delete this row" onclick={() => { deleteRow(index) }}>
-							<!-- https://heroicons.com/micro minus -->
+							<!-- https://heroicons.com/micro x-mark -->
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-6">
-								<path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
+								<path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z" />
 							</svg>
 						</button>
 					</td>
@@ -354,8 +354,8 @@
 						</svg>
 					</button>
 				</td>
-        <td class="text-center border-r border-neutral-400" colspan="2">{txt.subtotal}</td>
-        <td class="text-right">{formatNumber(amount)}</td>
+        <td class="text-center border-r border-b border-neutral-400" colspan="2">{txt.subtotal}</td>
+        <td class="text-right border-b border-neutral-400">{formatNumber(amount)}</td>
       </tr>
     </tfoot>
   </table>
@@ -363,8 +363,7 @@
   <div class="flex flex-wrap-reverse gap-4 my-2">
     <div class="grow">
       <div>{txt.note}</div>
-      <div class="hidden print:block">{qry.note}</div>
-      <textarea class="w-full bg-transparent border-0 p-0 print:hidden" bind:value={qry.note}></textarea>
+      <textarea class="w-full bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" bind:value={qry.note}></textarea>
     </div>
     <div class="">
       <div class="flex gap-4">
