@@ -112,7 +112,6 @@
     vendor: "",
     vendorid: "",
     vendorAddress: "",
-    vendorLogo: "",
     client: "____",
     clientid: "",
     clientAddress: "",
@@ -122,7 +121,8 @@
     vatRate: "0.07",
     whtRate: "0.00",
     adjust: "",
-    note: "________"
+    note: "________",
+    vendorLogo: "",
 	}
 
   let qry = $state(org);
@@ -325,11 +325,11 @@
         <tr class="border-y border-neutral-400">
           <td class="break-all p-1" contenteditable bind:textContent={qry.desc[index]}></td>
           <td class="text-center p-1">
-            <span class="hidden print:inline">{qry.qty[index]}</span>
+            <span class="hidden print:inline">{formatNumber(qry.qty[index])}</span>
             <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" bind:value={qry.qty[index]}>
           </td>
           <td class="text-center p-1">
-            <span class="hidden print:inline">{qry.price[index]}</span>
+            <span class="hidden print:inline">{formatNumber(qry.price[index])}</span>
             <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" bind:value={qry.price[index]}>
           </td>
           <td class="text-right p-1">
@@ -386,7 +386,7 @@
       {/if}
       <div class="flex gap-4">
         <div class="">{txt.adjust}</div>
-        <div class="grow text-right hidden print:block">{qry.adjust}</div>
+        <div class="grow text-right hidden print:block">{formatNumber(qry.adjust)}</div>
         <input class="grow bg-transparent border-0 p-0 print:hidden text-right" type="number" bind:value={qry.adjust} />
       </div>
       <div class="flex gap-4 font-medium">
