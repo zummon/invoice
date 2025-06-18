@@ -221,7 +221,6 @@
 			<button class="font-medium text-lg cursor-pointer border-b-2 {qry.doc == doc ? 'text-neutral-500 border-transparent' : 'text-cyan-500 border-cyan-500'} {qry.lang == locale ? '' : 'hidden'}" onclick={() => {
 				qry.lang = locale
 				qry.doc = doc; 
-				qry.whtRate = ['receipt'].includes(qry.doc) ? 0.01 : 0 
 			}}>{trns[locale].docs[doc].title}</button>
 		{/each}
     <button class="font-semibold text-lg cursor-pointer order-first border-b-2 {qry.lang == locale ? 'text-neutral-500 border-transparent' : 'text-green-500 border-green-500'}" onclick={() => {
@@ -323,7 +322,10 @@
     <tbody>
       {#each qry.desc as _, index}
         <tr class="border-y border-neutral-400">
-          <td class="break-all p-1" contenteditable bind:textContent={qry.desc[index]}></td>
+          <td class="break-all p-1">
+            <span class="hidden print:inline">{qry.desc[index]}</span>
+            <input class="bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.desc[index]}>
+          </td>
           <td class="text-center p-1">
             <span class="hidden print:inline">{formatNumber(qry.qty[index])}</span>
             <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" bind:value={qry.qty[index]}>
@@ -374,16 +376,22 @@
 				</div>
         <div class="grow text-right">{formatNumber(amount * +qry.vatRate)}</div>
       </div>
-      {#if ['receipt'].includes(qry.doc)}  
-        <div class="flex gap-4">
-          <div class="">
-						<span class="">{txt.wht}</span> 
-						<span class="hidden print:inline">{formatNumber(+qry.whtRate * 100)}%</span>
-						<input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.whtRate}>
-					</div>
-          <div class="grow text-right">{formatNumber(amount * +qry.whtRate)}</div>
+      <div class="flex gap-4 {qry.whtRate == '0.00' ? 'print:hidden':''}">
+        <div class="">
+          <input class="print:hidden" type="checkbox" onchange={(e) => {
+            let check = e.currentTarget.checked
+            if (check) {
+              qry.whtRate = '0.01'
+            } else {
+              qry.whtRate = '0.00'
+            }
+          }}>
+          <span class="">{txt.wht}</span> 
+          <span class="hidden print:inline">{formatNumber(+qry.whtRate * 100)}%</span>
+          <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.whtRate}>
         </div>
-      {/if}
+        <div class="grow text-right">{formatNumber(amount * +qry.whtRate)}</div>
+      </div>
       <div class="flex gap-4">
         <div class="">{txt.adjust}</div>
         <div class="grow text-right hidden print:block">{formatNumber(qry.adjust)}</div>
