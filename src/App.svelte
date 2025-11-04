@@ -139,17 +139,17 @@
   let amount = $derived.by(() => {
     let amount = 0;
     qry.qty.forEach((qty, index) => {
-      amount += +qty * +qry.price[index];
+      amount += Number(qty) * Number(qry.price[index]);
     });
     return amount;
   })
 
   function formatNumber (value, option) {
-		value = +value
+		value = Number(value)
     return value == 0 ? "" : value.toLocaleString(qry.lang, { minimumFractionDigits: 2, maximumFractionDigits: 2, ...option });
   }
   function formatDate (value, option) {
-    return new Date(value).toLocaleDateString(qry.lang, { day: 'numeric', month: 'short', year: 'numeric' , ...option })
+    return (new Date(value)).toLocaleDateString(qry.lang, { day: 'numeric', month: 'short', year: 'numeric' , ...option })
   }
 	function rawDate(value=new Date()) {
 		return (new Date(value)).toISOString().split('T')[0]
@@ -181,7 +181,7 @@
     qry = { ...org, lang: qry.lang, doc: qry.doc };
 		sharedUrl = ''
   }
-  function saveLink () {
+  function copyLink () {
     const searchParams = new URLSearchParams();
     let vendorLogo = "";
     if (qry.vendorLogo.length > 100) {
@@ -190,7 +190,9 @@
     }
     Object.entries(qry).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        searchParams.append(key, value.join(","));
+				value.forEach((v, i) => {
+					searchParams.append(key + '-' + i, v);
+				})
       } else {
         searchParams.append(key, value);
       }
@@ -201,16 +203,14 @@
   }
   onMount(() => {
     const searchParams = new URLSearchParams(location.search);
-
-    Object.entries(org).forEach(([key, value]) => {
-      if (searchParams.has(key)) {
-        if (Array.isArray(value)) {
-          qry[key] = searchParams.get(key).split(",");
-        } else {
-          qry[key] = searchParams.get(key);
-        }
-      }
-    });
+    searchParams.entries().forEach(([key, value]) => {
+			const [k, i] = key.split('-')
+			if (i) {
+				qry[k][+i] = value
+			} else if (org[key]) {
+        qry[key] = value;
+			}
+		});
   })
 </script>
 
@@ -230,7 +230,7 @@
 		<!-- https://fonts.google.com/icons?selected=Material+Symbols+Outlined:ink_eraser:FILL@0;wght@400;GRAD@0;opsz@40&icon.query=eraser&icon.size=32&icon.color=currentColor -->
 		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M682-226.67h198.67V-160H615.33L682-226.67ZM182.67-160l-82.34-84.33q-19.66-19-19.5-46.67.17-27.67 18.5-47l452-484q18.34-19.33 45.88-19.33 27.55 0 46.46 19l203 209.66q19 19 19.66 47 .67 28-18.33 47L508.67-160h-326ZM482-226.67l320.67-342-204-210.66L148-292l64 65.33h270ZM480-480Z"/></svg>
 	</button>
-  <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { saveLink() }}>
+  <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { copyLink() }}>
 		<!-- https://fonts.google.com/icons?icon.query=link&icon.size=32&icon.color=currentColor&icon.style=Rounded&selected=Material+Symbols+Rounded:link:FILL@0;wght@400;GRAD@0;opsz@40 -->
 		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h133.33q14.17 0 23.75 9.62 9.59 9.61 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280q-55.56 0-94.44 38.84-38.89 38.84-38.89 94.33 0 55.49 38.89 94.49 38.88 39 94.44 39h133.33q14.17 0 23.75 9.62 9.59 9.62 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280Zm76.67-166.67q-14.17 0-23.75-9.61-9.59-9.62-9.59-23.84 0-14.21 9.59-23.71 9.58-9.5 23.75-9.5h246.66q14.17 0 23.75 9.61 9.59 9.62 9.59 23.84 0 14.21-9.59 23.71-9.58 9.5-23.75 9.5H356.67Zm190 166.67q-14.17 0-23.75-9.62-9.59-9.61-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q55.56 0 94.44-38.84 38.89-38.84 38.89-94.33 0-55.49-38.89-94.49-38.88-39-94.44-39H546.67q-14.17 0-23.75-9.62-9.59-9.62-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H546.67Z"/></svg>
 	</button>
@@ -334,7 +334,7 @@
             <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" bind:value={qry.price[index]}>
           </td>
           <td class="text-right p-1">
-						&nbsp;<span class="">{formatNumber(+qry.qty[index] * +qry.price[index])}</span>
+						&nbsp;<span class="">{formatNumber(Number(qry.qty[index]) * Number(qry.price[index]))}</span>
 						<button class="text-red-500 cursor-pointer print:hidden" title="Delete this row" onclick={() => { deleteRow(index) }}>
 							<!-- https://heroicons.com/micro x-mark -->
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-6">
@@ -370,10 +370,10 @@
       <div class="flex gap-4">
         <div class="">
 					<span class="">{txt.vat}</span> 
-					<span class="hidden print:inline">{formatNumber(+qry.vatRate * 100)}%</span>
+					<span class="hidden print:inline">{formatNumber(Number(qry.vatRate) * 100)}%</span>
 					<input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.vatRate}>
 				</div>
-        <div class="grow text-right">{formatNumber(amount * +qry.vatRate)}</div>
+        <div class="grow text-right">{formatNumber(amount * Number(qry.vatRate))}</div>
       </div>
       <div class="flex gap-4 {qry.whtRate == '0.00' ? 'print:hidden':''}">
         <div class="">
@@ -386,10 +386,10 @@
             }
           }}>
           <span class="">{txt.wht}</span> 
-          <span class="hidden print:inline">{formatNumber(+qry.whtRate * 100)}%</span>
+          <span class="hidden print:inline">{formatNumber(Number(qry.whtRate) * 100)}%</span>
           <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.whtRate}>
         </div>
-        <div class="grow text-right">{formatNumber(amount * +qry.whtRate)}</div>
+        <div class="grow text-right">{formatNumber(amount * Number(qry.whtRate))}</div>
       </div>
       <div class="flex gap-4">
         <div class="">{txt.adjust}</div>
@@ -398,7 +398,7 @@
       </div>
       <div class="flex gap-4 font-medium">
         <div class="">{txt.total}</div>
-        <div class="grow text-right">{formatNumber(amount + (amount * +qry.vatRate) + (amount * +qry.whtRate) + +qry.adjust)}</div>
+        <div class="grow text-right">{formatNumber(amount + (amount * Number(qry.vatRate)) + (amount * Number(qry.whtRate)) + Number(qry.adjust))}</div>
       </div>
     </div>
   </div>
