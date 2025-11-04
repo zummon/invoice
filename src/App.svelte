@@ -98,16 +98,12 @@
 		}
 	}
 
-  let currentDate = new Date()
-  let nextMonthDate = new Date(currentDate)
-  nextMonthDate.setMonth(currentDate.getMonth() + 1)
-
 	const org = {
 		lang: "en",
     doc: "",
     no: "____",
-    date: currentDate.toJSON().split('T')[0],
-    dueDate: nextMonthDate.toJSON().split('T')[0],
+    date: rawDate(),
+    dueDate: rawDate(new Date((new Date()).getFullYear(),(new Date()).getMonth()+1)),
     payMethod: "________",
     vendor: "",
     vendorid: "",
@@ -155,6 +151,9 @@
   function formatDate (value, option) {
     return new Date(value).toLocaleDateString(qry.lang, { day: 'numeric', month: 'short', year: 'numeric' , ...option })
   }
+	function rawDate(value=new Date()) {
+		return (new Date(value)).toISOString().split('T')[0]
+	}
 
 	function uploadLogo (e) {
 		const file = e.target.files[0];
@@ -324,7 +323,7 @@
         <tr class="border-y border-neutral-400">
           <td class="break-all p-1">
             <span class="hidden print:inline">{qry.desc[index]}</span>
-            <input class="bg-transparent border-0 p-0 print:hidden" type="text" bind:value={qry.desc[index]}>
+            <input class="bg-transparent border-0 p-0 print:hidden w-full" type="text" bind:value={qry.desc[index]}>
           </td>
           <td class="text-center p-1">
             <span class="hidden print:inline">{formatNumber(qry.qty[index])}</span>
