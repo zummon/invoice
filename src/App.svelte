@@ -2,14 +2,20 @@
   import { onMount } from "svelte";
 	const trns = {
 		'': {
-			title: "English",
+			'': "English",
 			guide:'Select text you want to edit then type directly.',
 			guide2:'Click the logo to upload yours',
+			print: 'Print',
+			empty: 'Empty',
+			share: 'Share',
 		},
 		th: {
-			title: "ไทย",
+			'': "ไทย",
 			guide:'เลือกข้อความที่คุณต้องการแก้ไข แล้วพิมพ์โดยตรง',
 			guide2:'คลิกโลโก้ เพื่ออัพโหลด โลโก้ ของคุณ',
+			print: 'พิมพ์',
+			empty: 'ล้าง',
+			share: 'เผยแพร่',
 		}
 	}
 	const lbs = {
@@ -39,6 +45,8 @@
 			unit: "Unit",
 			amount: "Amount"
 		},
+		"invoice": {
+		},
 		"Tax invoice": {
 		},
 		"Receipt": {
@@ -48,7 +56,6 @@
 			vendorSign: "Receiver signature"
 		},
 		th: {
-			title: "ใบแจ้งหนี้",
 			no: "เลขที่",
 			date: "วันที่",
 			dueDate: "วันที่ครบกำหนด",
@@ -74,6 +81,7 @@
 			unit: "หน่วยนับ",
 			amount: "จำนวนเงิน"
 		},
+		"ใบแจ้งหนี้": {},
 		"ใบกำกับภาษี": {
 		},
 		"ใบส่งของ": {
@@ -97,7 +105,7 @@
     doc: "",
     no: "____",
     date: rawDate(),
-    dueDate: rawDate(new Date((new Date()).getFullYear(),(new Date()).getMonth()+1)),
+    dueDate: rawDate(),
     payMethod: "________",
     vendor: "",
     vendorid: "",
@@ -214,7 +222,7 @@
   })
 </script>
 
-<datalist id="">
+<datalist id="docs">
 	{#each Object.keys(lbs) as document}
 		<option>{document}</option>
 	{/each}
@@ -224,21 +232,16 @@
 	{#each Object.keys(trns) as locale}
     <button class="font-semibold text-lg cursor-pointer border-b-2 {qry.lang == locale ? 'text-neutral-500 border-transparent' : 'text-green-500 border-green-500'}" onclick={() => {
 			qry.lang = locale 
-		}}>{trns[locale].title}</button>
+		}}>{trns[locale]['']}</button>
   {/each}
   <button class="text-cyan-500 cursor-pointer" title="Clear forms" onclick={() => { clearForm() }}>
-		<!-- https://fonts.google.com/icons?selected=Material+Symbols+Outlined:ink_eraser:FILL@0;wght@400;GRAD@0;opsz@40&icon.query=eraser&icon.size=32&icon.color=currentColor -->
-		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M682-226.67h198.67V-160H615.33L682-226.67ZM182.67-160l-82.34-84.33q-19.66-19-19.5-46.67.17-27.67 18.5-47l452-484q18.34-19.33 45.88-19.33 27.55 0 46.46 19l203 209.66q19 19 19.66 47 .67 28-18.33 47L508.67-160h-326ZM482-226.67l320.67-342-204-210.66L148-292l64 65.33h270ZM480-480Z"/></svg>
+		{txt.empty}
 	</button>
   <button class="text-cyan-500 cursor-pointer" title="Copy shareable link to clipboard" onclick={() => { copyLink() }}>
-		<!-- https://fonts.google.com/icons?icon.query=link&icon.size=32&icon.color=currentColor&icon.style=Rounded&selected=Material+Symbols+Rounded:link:FILL@0;wght@400;GRAD@0;opsz@40 -->
-		<svg class="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h133.33q14.17 0 23.75 9.62 9.59 9.61 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280q-55.56 0-94.44 38.84-38.89 38.84-38.89 94.33 0 55.49 38.89 94.49 38.88 39 94.44 39h133.33q14.17 0 23.75 9.62 9.59 9.62 9.59 23.83 0 14.22-9.59 23.72-9.58 9.5-23.75 9.5H280Zm76.67-166.67q-14.17 0-23.75-9.61-9.59-9.62-9.59-23.84 0-14.21 9.59-23.71 9.58-9.5 23.75-9.5h246.66q14.17 0 23.75 9.61 9.59 9.62 9.59 23.84 0 14.21-9.59 23.71-9.58 9.5-23.75 9.5H356.67Zm190 166.67q-14.17 0-23.75-9.62-9.59-9.61-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q55.56 0 94.44-38.84 38.89-38.84 38.89-94.33 0-55.49-38.89-94.49-38.88-39-94.44-39H546.67q-14.17 0-23.75-9.62-9.59-9.62-9.59-23.83 0-14.22 9.59-23.72 9.58-9.5 23.75-9.5H680q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H546.67Z"/></svg>
+		{txt.share}
 	</button>
-  <button class="text-green-500 cursor-pointer" title="Print" onclick={() => { print() }} >
-		<!-- https://heroicons.com/solid printer -->
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8">
-			<path fill-rule="evenodd" d="M7.875 1.5C6.839 1.5 6 2.34 6 3.375v2.99c-.426.053-.851.11-1.274.174-1.454.218-2.476 1.483-2.476 2.917v6.294a3 3 0 0 0 3 3h.27l-.155 1.705A1.875 1.875 0 0 0 7.232 22.5h9.536a1.875 1.875 0 0 0 1.867-2.045l-.155-1.705h.27a3 3 0 0 0 3-3V9.456c0-1.434-1.022-2.7-2.476-2.917A48.716 48.716 0 0 0 18 6.366V3.375c0-1.036-.84-1.875-1.875-1.875h-8.25ZM16.5 6.205v-2.83A.375.375 0 0 0 16.125 3h-8.25a.375.375 0 0 0-.375.375v2.83a49.353 49.353 0 0 1 9 0Zm-.217 8.265c.178.018.317.16.333.337l.526 5.784a.375.375 0 0 1-.374.409H7.232a.375.375 0 0 1-.374-.409l.526-5.784a.373.373 0 0 1 .333-.337 41.741 41.741 0 0 1 8.566 0Zm.967-3.97a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H18a.75.75 0 0 1-.75-.75V10.5ZM15 9.75a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V10.5a.75.75 0 0 0-.75-.75H15Z" clip-rule="evenodd" />
-		</svg>	
+  <button class="font-semibold text-lg cursor-pointer border-b-2 text-green-500 border-green-500" title="Print" onclick={() => { print() }} >
+		{txt.print}
 	</button>
 </div>
 
@@ -254,17 +257,17 @@
   <div class="flex flex-wrap gap-2">
     <label class="cursor-pointer {qry.vendorLogo ? '' : 'print:hidden'}">
       <input class="hidden" type="file" onchange={(e) => { uploadLogo(e) }} />
-      <img class="max-h-20" src={qry.vendorLogo} alt={txt.vendorLogo} />
+      <img class="max-h-20" src={qry.vendorLogo} alt={tag.vendorLogo} />
     </label>
     <div class="">
       <div class="">
-        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.vendor} bind:value={qry.vendor} />
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={tag.vendor} bind:value={qry.vendor} />
       </div>
       <div class="">
-        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.vendorid} bind:value={qry.vendorid} />
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={tag.vendorid} bind:value={qry.vendorid} />
       </div>
       <div class="">
-        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={txt.vendorAddress} bind:value={qry.vendorAddress}></textarea>
+        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={tag.vendorAddress} bind:value={qry.vendorAddress}></textarea>
       </div>
     </div>
   </div>
@@ -272,37 +275,37 @@
   <div class="flex flex-wrap gap-2 my-2 items-center">
     <div class="grow">
       <div class="flex gap-2">
-        <div class="">{txt.client}</div>
+        <div class="">{tag.client}</div>
         <div class="">
 					<input class="bg-transparent border-0 p-0 field-sizing-content" type="text" bind:value={qry.client} />
 				</div>
       </div>
       <div class="">
-        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={txt.clientid} bind:value={qry.clientid} />
+        <input class="bg-transparent border-0 p-0 field-sizing-content" type="text" placeholder={tag.clientid} bind:value={qry.clientid} />
       </div>
       <div class="">
-        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={txt.clientAddress} bind:value={qry.clientAddress}></textarea>
+        <textarea class="bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" placeholder={tag.clientAddress} bind:value={qry.clientAddress}></textarea>
       </div>
     </div>
     <div class="">
-      <h1 class="text-2xl">{txt.title}</h1>
+			<input class="text-2xl bg-transparent border-0 p-0 field-sizing-content" type="text" list="docs" bind:value={qry.doc}>
       <div class="flex gap-2">
-        <div class="">{txt.no}</div>
+        <div class="">{tag.no}</div>
         <div class="">
 					<input class="bg-transparent border-0 p-0 field-sizing-content" type="text" bind:value={qry.no} />
 				</div>
       </div>
       <div class="flex gap-2">
-        <div class="">{txt.date}</div>
+        <div class="">{tag.date}</div>
         <div class="grow hidden print:block">{formatDate(qry.date)}</div>
         <input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.date} />
       </div>
 			<div class="flex gap-2">
-				<div class="">{txt.dueDate}</div>
+				<div class="">{tag.dueDate}</div>
 				<div class="grow hidden print:block">{formatDate(qry.dueDate)}</div>
 				<input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.dueDate} />
 			</div>
-      <div class="">{txt.payMethod}</div>
+      <div class="">{tag.payMethod}</div>
       <textarea class="w-full bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" bind:value={qry.payMethod}></textarea>
     </div>
   </div>
@@ -310,10 +313,10 @@
   <table class="w-full">
     <thead>
       <tr class="font-medium">
-        <td class="">{txt.desc}</td>
-        <td class="border-x border-neutral-400 text-center">{txt.qty}</td>
-        <td class="border-x border-neutral-400 text-center">{txt.price}</td>
-        <td class="text-right">{txt.amount}</td>
+        <td class="">{tag.desc}</td>
+        <td class="border-x border-neutral-400 text-center">{tag.qty}</td>
+        <td class="border-x border-neutral-400 text-center">{tag.price}</td>
+        <td class="text-right">{tag.amount}</td>
       </tr>
     </thead>
     <tbody>
@@ -353,7 +356,7 @@
 						</svg>
 					</button>
 				</td>
-        <td class="text-center border-r border-b border-neutral-400" colspan="2">{txt.subtotal}</td>
+        <td class="text-center border-r border-b border-neutral-400" colspan="2">{tag.subtotal}</td>
         <td class="text-right border-b border-neutral-400">{formatNumber(amount)}</td>
       </tr>
     </tfoot>
@@ -361,13 +364,13 @@
 
   <div class="flex flex-wrap-reverse gap-4 my-2">
     <div class="grow">
-      <div>{txt.note}</div>
+      <div>{tag.note}</div>
       <textarea class="w-full bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" bind:value={qry.note}></textarea>
     </div>
     <div class="">
       <div class="flex gap-4">
         <div class="">
-					<span class="">{txt.vat}</span> 
+					<span class="">{tag.vat}</span> 
 					<span class="hidden print:inline">{formatNumber(Number(qry.vatRate) * 100)}%</span>
 					<input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.vatRate}>
 				</div>
@@ -383,19 +386,19 @@
               qry.whtRate = '0.00'
             }
           }}>
-          <span class="">{txt.wht}</span> 
+          <span class="">{tag.wht}</span> 
           <span class="hidden print:inline">{formatNumber(Number(qry.whtRate) * 100)}%</span>
           <input class="bg-transparent border-0 p-0 print:hidden w-20 text-center" type="number" step="0.01" bind:value={qry.whtRate}>
         </div>
         <div class="grow text-right">{formatNumber(amount * Number(qry.whtRate))}</div>
       </div>
       <div class="flex gap-4">
-        <div class="">{txt.adjust}</div>
+        <div class="">{tag.adjust}</div>
         <div class="grow text-right hidden print:block">{formatNumber(qry.adjust)}</div>
         <input class="grow bg-transparent border-0 p-0 print:hidden text-right" type="number" bind:value={qry.adjust} />
       </div>
       <div class="flex gap-4 font-medium">
-        <div class="">{txt.total}</div>
+        <div class="">{tag.total}</div>
         <div class="grow text-right">{formatNumber(amount + (amount * Number(qry.vatRate)) + (amount * Number(qry.whtRate)) + Number(qry.adjust))}</div>
       </div>
     </div>
@@ -404,11 +407,11 @@
   <div class="flex flex-wrap justify-end gap-8">
     <div class="">
       <br /><br />
-      <div class="border-t border-neutral-400" >{txt.vendorSign}</div>
+      <div class="border-t border-neutral-400" >{tag.vendorSign}</div>
     </div>
     <div class="">
       <br /><br />
-      <div class="border-t border-neutral-400" >{txt.clientSign}</div>
+      <div class="border-t border-neutral-400" >{tag.clientSign}</div>
     </div>
   </div>
 </div>
