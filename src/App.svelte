@@ -1,105 +1,99 @@
 <script>
   import { onMount } from "svelte";
 	const trns = {
-		en: {
+		'': {
 			title: "English",
-			docs: {
-				"": {
-					title: "invoice",
-					no: "No",
-					date: "Date",
-					dueDate: "Due date",
-					payMethod: "Payment",
-					vat: "Value-added tax",
-					wht: "Withholding tax",
-					adjust: "Adjust",
-					client: "Bill to",
-					clientid: "Client iD",
-					clientAddress: "Client address",
-					vendorLogo: "Vendor Logo",
-					vendor: "Vendor name",
-					vendorid: "Vendor iD",
-					vendorAddress: "Vendor address",
-					note: "Note",
-					subtotal: "Subtotal",
-					total: "Total",
-					clientSign: "Client signature",
-					vendorSign: "Vendor signature",
-					desc: "Description",
-					price: "Price",
-					qty: "Qty",
-					unit: "Unit",
-					amount: "Amount"
-				},
-				taxinvoice: {
-					title: "Tax invoice"
-				},
-				receipt: {
-					title: "Receipt",
-					date: "Received date",
-					client: "Received from",
-					total: "Paid total",
-					vendorSign: "Receiver signature"
-				}
-			}
+			guide:'Select text you want to edit then type directly.',
+			guide2:'Click the logo to upload yours',
 		},
 		th: {
 			title: "ไทย",
-			docs: {
-				"": {
-					title: "ใบแจ้งหนี้",
-					no: "เลขที่",
-					date: "วันที่",
-					dueDate: "วันที่ครบกำหนด",
-					payMethod: "จ่ายแบบ",
-					vat: "ภาษีมูลค่าเพิ่ม",
-					wht: "ภาษีหัก ณ ที่จ่าย",
-					adjust: "ปรับปรุง",
-					client: "ถึง",
-					clientid: "เลขประจำตัวภาษีผู้ซื้อ",
-					clientAddress: "ที่อยู่ผู้ซื้อ",
-					vendorLogo: "โลโก้ผู้ขาย",
-					vendor: "ชื่อผู้ขาย",
-					vendorid: "เลขประจำตัวภาษีผู้ขาย",
-					vendorAddress: "ที่อยู่ผู้ขาย",
-					note: "หมายเหตุ",
-					subtotal: "รวม",
-					total: "รวมทั้งสิ้น",
-					clientSign: "ลายเซ็นผู้ซื้อ",
-					vendorSign: "ลายเซ็นผู้ขาย",
-					desc: "รายละเอียด",
-					price: "ราคา",
-					qty: "ปริมาณ",
-					unit: "หน่วยนับ",
-					amount: "จำนวนเงิน"
-				},
-				taxinvoice: {
-					title: "ใบกำกับภาษี"
-				},
-				delivery: {
-					title: "ใบส่งของ",
-					clientSign: "ลายเซ็นผู้รับของ"
-				},
-				receipt: {
-					title: "ใบเสร็จรับเงิน",
-					date: "วันที่รับเงิน",
-					client: "รับเงินจาก",
-					total: "จ่ายไปทั้งสิ้น",
-					vendorSign: "ลายเซ็นผู้รับเงิน"
-				},
-				cashSale: {
-					title: "บิลเงินสด",
-					vendorSign: "ลายเซ็นผู้รับเงิน"
-				},
-				quotation: {
-					title: "ใบเสนอราคา",
-				}
-			}
+			guide:'เลือกข้อความที่คุณต้องการแก้ไข แล้วพิมพ์โดยตรง',
+			guide2:'คลิกโลโก้ เพื่ออัพโหลด โลโก้ ของคุณ',
+		}
+	}
+	const lbs = {
+		'': {
+			no: "No",
+			date: "Date",
+			dueDate: "Due date",
+			payMethod: "Payment",
+			vat: "Value-added tax",
+			wht: "Withholding tax",
+			adjust: "Adjust",
+			client: "Bill to",
+			clientid: "Client iD",
+			clientAddress: "Client address",
+			vendorLogo: "Vendor Logo",
+			vendor: "Vendor name",
+			vendorid: "Vendor iD",
+			vendorAddress: "Vendor address",
+			note: "Note",
+			subtotal: "Subtotal",
+			total: "Total",
+			clientSign: "Client signature",
+			vendorSign: "Vendor signature",
+			desc: "Description",
+			price: "Price",
+			qty: "Qty",
+			unit: "Unit",
+			amount: "Amount"
+		},
+		"Tax invoice": {
+		},
+		"Receipt": {
+			date: "Received date",
+			client: "Received from",
+			total: "Paid total",
+			vendorSign: "Receiver signature"
+		},
+		th: {
+			title: "ใบแจ้งหนี้",
+			no: "เลขที่",
+			date: "วันที่",
+			dueDate: "วันที่ครบกำหนด",
+			payMethod: "จ่ายแบบ",
+			vat: "ภาษีมูลค่าเพิ่ม",
+			wht: "ภาษีหัก ณ ที่จ่าย",
+			adjust: "ปรับปรุง",
+			client: "ถึง",
+			clientid: "เลขประจำตัวภาษีผู้ซื้อ",
+			clientAddress: "ที่อยู่ผู้ซื้อ",
+			vendorLogo: "โลโก้ผู้ขาย",
+			vendor: "ชื่อผู้ขาย",
+			vendorid: "เลขประจำตัวภาษีผู้ขาย",
+			vendorAddress: "ที่อยู่ผู้ขาย",
+			note: "หมายเหตุ",
+			subtotal: "รวม",
+			total: "รวมทั้งสิ้น",
+			clientSign: "ลายเซ็นผู้ซื้อ",
+			vendorSign: "ลายเซ็นผู้ขาย",
+			desc: "รายละเอียด",
+			price: "ราคา",
+			qty: "ปริมาณ",
+			unit: "หน่วยนับ",
+			amount: "จำนวนเงิน"
+		},
+		"ใบกำกับภาษี": {
+		},
+		"ใบส่งของ": {
+			clientSign: "ลายเซ็นผู้รับของ"
+		},
+		"ใบเสร็จรับเงิน": {
+			date: "วันที่รับเงิน",
+			client: "รับเงินจาก",
+			total: "จ่ายไปทั้งสิ้น",
+			vendorSign: "ลายเซ็นผู้รับเงิน"
+		},
+		"บิลเงินสด": {
+			vendorSign: "ลายเซ็นผู้รับเงิน"
+		},
+		"ใบเสนอราคา": {
 		}
 	}
 
 	const org = {
-		lang: "en",
+		lang: "",
     doc: "",
     no: "____",
     date: rawDate(),
@@ -125,15 +119,21 @@
 	let sharedUrl = $state('')
 
   let txt = $derived.by(() => {
-    let trn = trns.en;
+    let trn = trns[''];
     if (trns[qry.lang]) {
       trn = { ...trn, ...trns[qry.lang] };
     }
-    let txt = trns.en.docs[""];
-    if (trn.docs[qry.doc]) {
-      txt = { ...txt, ...trn.docs[""], ...trn.docs[qry.doc] };
+    return trn;
+  })
+	let tag = $derived.by(() => {
+    let lb = lbs[''];
+    if (lbs[qry.lang]) {
+      lb = { ...lb, ...lbs[qry.lang] };
     }
-    return txt;
+    if (lb[qry.doc]) {
+      lb = { ...lb, ...lbs[qry.doc] };
+    }
+    return lb;
   })
 
   let amount = $derived.by(() => {
@@ -214,15 +214,15 @@
   })
 </script>
 
+<datalist id="">
+	{#each Object.keys(lbs) as document}
+		<option>{document}</option>
+	{/each}
+</datalist>
+
 <div class="flex flex-wrap justify-center px-2 py-4 lg:py-6 gap-4 print:hidden">
 	{#each Object.keys(trns) as locale}
-		{#each Object.keys(trns[locale].docs) as doc}
-			<button class="font-medium text-lg cursor-pointer border-b-2 {qry.doc == doc ? 'text-neutral-500 border-transparent' : 'text-cyan-500 border-cyan-500'} {qry.lang == locale ? '' : 'hidden'}" onclick={() => {
-				qry.lang = locale
-				qry.doc = doc; 
-			}}>{trns[locale].docs[doc].title}</button>
-		{/each}
-    <button class="font-semibold text-lg cursor-pointer order-first border-b-2 {qry.lang == locale ? 'text-neutral-500 border-transparent' : 'text-green-500 border-green-500'}" onclick={() => {
+    <button class="font-semibold text-lg cursor-pointer border-b-2 {qry.lang == locale ? 'text-neutral-500 border-transparent' : 'text-green-500 border-green-500'}" onclick={() => {
 			qry.lang = locale 
 		}}>{trns[locale].title}</button>
   {/each}
@@ -246,8 +246,8 @@
 	<div class="truncate underline text-cyan-500">
 		<a class="" target="_top" href={sharedUrl}>{sharedUrl}</a>
 	</div>
-	Select text you want to edit then type directly.<br>
-	Click the logo to upload yours
+	{txt.guide}<br>
+	{txt.guide2}
 </div>
 
 <div class="max-w-3xl p-8 mx-auto bg-white shadow-md print:p-0 print:shadow-none" style='font-family: "Noto Serif Thai", serif;'>
@@ -297,13 +297,11 @@
         <div class="grow hidden print:block">{formatDate(qry.date)}</div>
         <input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.date} />
       </div>
-      {#if !['receipt'].includes(qry.doc)}
-        <div class="flex gap-2">
-          <div class="">{txt.dueDate}</div>
-          <div class="grow hidden print:block">{formatDate(qry.dueDate)}</div>
-          <input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.dueDate} />
-        </div>
-      {/if}
+			<div class="flex gap-2">
+				<div class="">{txt.dueDate}</div>
+				<div class="grow hidden print:block">{formatDate(qry.dueDate)}</div>
+				<input class="bg-transparent border-0 p-0 print:hidden" type="date" bind:value={qry.dueDate} />
+			</div>
       <div class="">{txt.payMethod}</div>
       <textarea class="w-full bg-transparent border-0 p-0 field-sizing-content resize-none overflow-hidden" bind:value={qry.payMethod}></textarea>
     </div>
