@@ -369,8 +369,9 @@
 			</div>
 		</div>
 		<div class="">
+			<h2 class="text-2xl hidden print:block">{qry.doc}</h2>
 			<input
-				class="text-2xl bg-transparent border-0 p-0 field-sizing-content"
+				class="text-2xl bg-transparent border-0 p-0 field-sizing-content print:hidden"
 				type="text"
 				list="docs"
 				placeholder="Title"
@@ -398,7 +399,7 @@
 			<div class="flex gap-2 {qry.dueDate ? '' : 'print:hidden opacity-50'}">
 				<label>
 					<input
-						class="print:hidden"
+						class="print:hidden accent-cyan-500"
 						type="checkbox"
 						checked={Boolean(qry.dueDate)}
 						onchange={(e) => {
@@ -560,7 +561,7 @@
 				<div class="">
 					<label>
 						<input
-							class="print:hidden"
+							class="print:hidden accent-cyan-500"
 							type="checkbox"
 							onchange={(e) => {
 								let check = e.currentTarget.checked;
