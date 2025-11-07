@@ -149,22 +149,34 @@
 	});
 
 	function formatNumber(value, option = {}) {
+		option = {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+			...option,
+		};
 		value = Number(value);
-		return value == 0
-			? ""
-			: value.toLocaleString(qry.lang || undefined, {
-					minimumFractionDigits: 2,
-					maximumFractionDigits: 2,
-					...option,
-				});
+		if (value == 0) {
+			return "";
+		} else {
+			try {
+				return value.toLocaleString(qry.lang, option);
+			} catch {
+				return value.toLocaleString(undefined, option);
+			}
+		}
 	}
 	function formatDate(value, option = {}) {
-		return new Date(value).toLocaleDateString(qry.lang || undefined, {
+		option = {
 			day: "numeric",
 			month: "short",
 			year: "numeric",
 			...option,
-		});
+		};
+		try {
+			return new Date(value).toLocaleDateString(qry.lang, option);
+		} catch {
+			return new Date(value).toLocaleDateString(undefined, option);
+		}
 	}
 	function rawDate(value = new Date()) {
 		return new Date(value).toISOString().split("T")[0];
@@ -218,6 +230,10 @@
 		navigator.clipboard.writeText(sharedUrl);
 	}
 	onMount(() => {
+		let userLang = navigator.language
+		if (trns[userLang]) {
+			qry.lang = userLang
+		}
 		const searchParams = new URLSearchParams(location.search);
 		searchParams.entries().forEach(([key, value]) => {
 			const [k, i] = key.split("-");
@@ -272,7 +288,7 @@
 		title="Copy shareable link to clipboard"
 		onclick={() => {
 			if (sharedUrl) {
-				sharedUrl=''
+				sharedUrl = "";
 			} else {
 				copyLink();
 			}
@@ -557,7 +573,11 @@
 					{formatNumber(amount * Number(qry.vatRate))}
 				</div>
 			</div>
-			<div class="flex gap-4 {Number(qry.whtRate) ? '' : 'print:hidden opacity-50'}">
+			<div
+				class="flex gap-4 {Number(qry.whtRate)
+					? ''
+					: 'print:hidden opacity-50'}"
+			>
 				<div class="">
 					<label>
 						<input
