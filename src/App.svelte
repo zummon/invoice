@@ -462,7 +462,7 @@
 	</button>
 
 	<button
-		class="btn btn-action"
+		class="btn btn-colorful"
 		onclick={() => {
 			print();
 		}}
@@ -486,7 +486,7 @@
 
 	<!-- Share / Copy Link Button -->
 	<button
-		class="btn btn-share"
+		class="btn btn-action"
 		class:copied={showCopied}
 		onclick={() => {
 			const searchParams = new URLSearchParams();
@@ -708,7 +708,11 @@
 					/>
 				</div>
 				<!-- Due Date -->
-				<div class="meta-row" class:print-hidden={!qry.dueDate} style={qry.dueDate ? "" : "opacity: 0.5;"}>
+				<div
+					class="meta-row"
+					class:print-hidden={!qry.dueDate}
+					style={qry.dueDate ? "" : "opacity: 0.5;"}
+				>
 					<span class="meta-label">{tag.dueDate}</span>
 					<div
 						class="grow text-right hidden print:block font-medium text-neutral-800"
@@ -729,8 +733,8 @@
 						bind:value={qry.payMethod}
 					></textarea>
 				</div>
-				<!-- Currency (Hidden in Print) -->
-				<div class="meta-row currency print-hidden">
+				<!-- Currency -->
+				<div class="meta-row currency">
 					<span class="meta-label">{tag.currency}</span>
 					<input
 						class="input-text input-meta-currency"
@@ -746,100 +750,100 @@
 	<!-- Table Area -->
 	<div class="invoice-table-wrapper">
 		<table class="invoice-table">
-		<thead>
-			<tr>
-				<th class="th-desc">{tag.desc}</th>
-				<th class="th-qty">{tag.qty}</th>
-				<th class="th-price">{tag.price}</th>
-				<th class="th-amount">{tag.amount}</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each qry.desc as _, index}
+			<thead>
 				<tr>
-					<td class="td-desc">
-						<span class="hidden print:inline text-sm text-neutral-800"
-							>{qry.desc[index]}</span
-						>
-						<input
-							class="input-text input-table-desc print-hidden"
-							type="text"
-							placeholder={tag.itemDesc}
-							bind:value={qry.desc[index]}
-						/>
-					</td>
-					<td class="td-qty" data-label={tag.qty}>
-						<span class="hidden print:inline text-sm text-neutral-800">
-							{formatNumber(qry.qty[index])}
-						</span>
-						<input
-							class="input-text input-table-qty print-hidden"
-							type="number"
-							placeholder="0"
-							bind:value={qry.qty[index]}
-						/>
-					</td>
-					<td class="td-price" data-label={tag.price}>
-						<span class="hidden print:inline text-sm text-neutral-800">
-							{formatNumber(qry.price[index])}
-						</span>
-						<input
-							class="input-text input-table-price print-hidden"
-							type="number"
-							placeholder="0.00"
-							bind:value={qry.price[index]}
-						/>
-					</td>
-					<td class="td-amount" data-label={tag.amount}>
-						<div class="amount-container">
-							<span>
-								{formatNumber(
-									Number(qry.qty[index]) * Number(qry.price[index]),
-								)}
-							</span>
-						</div>
-						<!-- Delete button aligned absolute-right, hidden in print, only showing opacity on row hover -->
-						<!-- svelte-ignore a11y_consider_explicit_label -->
-						<button
-							class="btn-delete-row print-hidden"
-							onclick={() => {
-								qry.price.splice(index, 1);
-								qry.qty.splice(index, 1);
-								qry.desc.splice(index, 1);
-							}}
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="2.5"
-								stroke="currentColor"
-								class="btn-delete-row-icon"
+					<th class="th-desc">{tag.desc}</th>
+					<th class="th-qty">{tag.qty}</th>
+					<th class="th-price">{tag.price}</th>
+					<th class="th-amount">{tag.amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each qry.desc as _, index}
+					<tr>
+						<td class="td-desc">
+							<span class="hidden print:inline text-sm text-neutral-800"
+								>{qry.desc[index]}</span
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6 18L18 6M6 6l12 12"
-								/>
-							</svg>
-						</button>
+							<input
+								class="input-text input-table-desc print-hidden"
+								type="text"
+								placeholder={tag.itemDesc}
+								bind:value={qry.desc[index]}
+							/>
+						</td>
+						<td class="td-qty" data-label={tag.qty}>
+							<span class="hidden print:inline text-sm text-neutral-800">
+								{formatNumber(qry.qty[index])}
+							</span>
+							<input
+								class="input-text input-table-qty print-hidden"
+								type="number"
+								placeholder="0"
+								bind:value={qry.qty[index]}
+							/>
+						</td>
+						<td class="td-price" data-label={tag.price}>
+							<span class="hidden print:inline text-sm text-neutral-800">
+								{formatNumber(qry.price[index])}
+							</span>
+							<input
+								class="input-text input-table-price print-hidden"
+								type="number"
+								placeholder="0.00"
+								bind:value={qry.price[index]}
+							/>
+						</td>
+						<td class="td-amount" data-label={tag.amount}>
+							<div class="amount-container">
+								<span>
+									{formatNumber(
+										Number(qry.qty[index]) * Number(qry.price[index]),
+									)}
+								</span>
+							</div>
+							<!-- Delete button aligned absolute-right, hidden in print, only showing opacity on row hover -->
+							<!-- svelte-ignore a11y_consider_explicit_label -->
+							<button
+								class="btn-delete-row print-hidden"
+								onclick={() => {
+									qry.price.splice(index, 1);
+									qry.qty.splice(index, 1);
+									qry.desc.splice(index, 1);
+								}}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2.5"
+									stroke="currentColor"
+									class="btn-delete-row-icon"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6 18L18 6M6 6l12 12"
+									/>
+								</svg>
+							</button>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class=""></td>
+					<td class="tfoot-label" colspan="2">
+						{tag.subtotal}
+					</td>
+					<td class="tfoot-value">
+						{formatNumber(amount)}
 					</td>
 				</tr>
-			{/each}
-		</tbody>
-		<tfoot>
-			<tr>
-				<td class="print-hidden"></td>
-				<td class="tfoot-label" colspan="2">
-					{tag.subtotal}
-				</td>
-				<td class="tfoot-value">
-					{formatNumber(amount)}
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</div>
+			</tfoot>
+		</table>
+	</div>
 
 	<!-- Add Line Item Button (Dashed block) -->
 	<button
@@ -905,7 +909,11 @@
 			</div>
 
 			<!-- WHT -->
-			<div class="total-row" class:print-hidden={!Number(qry.whtRate)} style={Number(qry.whtRate) ? "" : "opacity: 0.5;"}>
+			<div
+				class="total-row"
+				class:print-hidden={!Number(qry.whtRate)}
+				style={Number(qry.whtRate) ? "" : "opacity: 0.5;"}
+			>
 				<label class="total-row-label">
 					{tag.wht}
 					<input

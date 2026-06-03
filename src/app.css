@@ -38,6 +38,10 @@
 	padding: 0;
 }
 
+input, select, textarea, button {
+	font-family: inherit;
+}
+
 body {
 	background-color: var(--color-bg);
 	color: var(--color-text-main);
@@ -153,19 +157,21 @@ body {
 	height: 1rem;
 }
 
-.btn-share {
-	color: #ffffff;
-	background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+.btn-action.copied {
+	color: var(--color-success) !important;
+	border-color: var(--color-success) !important;
+	background-color: #ecfdf5 !important;
+}
+
+.btn-colorful {
+	color: #ffffff !important;
+	background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+	border: 1px solid transparent !important;
 	box-shadow: 0 4px 10px -2px rgba(59, 130, 246, 0.2);
 }
 
-.btn-share:hover {
-	opacity: 0.95;
-}
-
-.btn-share.copied {
-	background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
-	box-shadow: 0 4px 10px -2px rgba(16, 185, 129, 0.2);
+.btn-colorful:hover {
+	opacity: 0.95 !important;
 }
 
 /* Invoice Card container */
@@ -477,7 +483,6 @@ body {
 .input-meta-currency {
 	text-align: right;
 	font-weight: 700;
-	color: var(--color-primary);
 	width: 4rem;
 }
 
@@ -676,17 +681,11 @@ body {
 /* Footer Section - Notes & Breakdown layout */
 .invoice-footer {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: 1fr 1fr;
 	gap: 2rem;
 	margin-top: 3rem;
 	padding-top: 2rem;
 	border-top: 1px solid var(--color-border-light);
-}
-
-@media (min-width: 768px) {
-	.invoice-footer {
-		grid-template-columns: 1fr 1fr;
-	}
 }
 
 .notes-section {
@@ -751,7 +750,7 @@ body {
 }
 
 .input-total-rate {
-	background-color: var(--color-border-light);
+	background-color: #ffffff;
 	border: 1px solid var(--color-border);
 	text-align: center;
 	color: #374151;
@@ -767,12 +766,13 @@ body {
 }
 
 .input-total-rate:hover {
-	background-color: #e2e8f0;
+	background-color: #f1f5f9;
 }
 
 .input-total-rate:focus {
 	background-color: #ffffff;
 	border-color: var(--color-primary);
+	box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 .total-row-value {
@@ -782,7 +782,7 @@ body {
 }
 
 .input-adjust-value {
-	background-color: var(--color-border-light);
+	background-color: #ffffff;
 	border: 1px solid var(--color-border);
 	text-align: right;
 	font-weight: 500;
@@ -795,12 +795,13 @@ body {
 }
 
 .input-adjust-value:hover {
-	background-color: #e2e8f0;
+	background-color: #f1f5f9;
 }
 
 .input-adjust-value:focus {
 	background-color: #ffffff;
 	border-color: var(--color-primary);
+	box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 /* Total Due Card style */
@@ -935,170 +936,7 @@ body {
 	-webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 768px) {
-	body {
-		padding: 0.5rem;
-	}
 
-	.invoice-card {
-		padding: 1rem;
-		border-radius: 1rem;
-		width: 100%;
-		max-width: 100%;
-		min-height: auto !important;
-	}
-
-	.invoice-header {
-		display: flex;
-		flex-direction: column-reverse;
-		/* Stacks Invoice Title & Metadata to the top */
-		gap: 1.5rem;
-		margin-bottom: 2rem;
-	}
-
-	.client-details {
-		max-width: 100%;
-		margin-top: 1.5rem;
-		padding: 1rem;
-	}
-
-	.invoice-meta {
-		width: 100%;
-		align-items: flex-end;
-		/* Align right on mobile, matching desktop */
-		text-align: right;
-	}
-
-	.input-doc-title {
-		max-width: 18rem;
-		text-align: right;
-		/* Align right on mobile, matching desktop */
-		font-size: 1.5rem;
-	}
-
-	.meta-fields-group {
-		max-width: 15rem;
-		margin: 0 0 0 auto;
-		/* Align right on mobile, matching desktop */
-		width: 100%;
-	}
-
-	/* Scale down font sizes on smaller screens */
-	.logo-uploader-text,
-	.logo-preview-overlay,
-	.input-vendor-id,
-	.client-title,
-	.input-client-id,
-	.meta-label,
-	.invoice-table th,
-	.tfoot-label,
-	.notes-label,
-	.input-total-rate,
-	.input-adjust-value,
-	.total-due-label,
-	.signature-label,
-	.not-set-placeholder,
-	.td-qty::before,
-	.td-price::before,
-	.td-amount::before {
-		font-size: 0.75rem !important;
-	}
-
-	.lang-switcher-select,
-	.btn,
-	.textarea-vendor-address,
-	.textarea-client-address,
-	.meta-row,
-	.btn-add-row,
-	.textarea-notes,
-	.total-row,
-	.app-footer {
-		font-size: 0.8125rem !important;
-		/* Slightly smaller than desktop */
-	}
-
-	.text-sm {
-		font-size: 0.8125rem !important;
-	}
-}
-
-@media (max-width: 640px) {
-	.vendor-logo-wrapper {
-		flex-direction: row;
-		/* Keep side-by-side like desktop */
-		align-items: start;
-		gap: 1rem;
-		width: 100%;
-	}
-
-	.vendor-details {
-		max-width: 13rem;
-		align-items: start;
-		/* Left-aligned like desktop */
-	}
-
-	.input-vendor-name,
-	.input-vendor-id,
-	.textarea-vendor-address {
-		text-align: left;
-		/* Left-aligned like desktop */
-	}
-
-	.client-details {
-		text-align: left;
-		/* Left-aligned like desktop */
-	}
-
-	.input-client-name,
-	.input-client-id,
-	.textarea-client-address {
-		text-align: left;
-		/* Left-aligned like desktop */
-	}
-
-	/* Compact Table inputs for smaller screens */
-	.input-table-qty {
-		width: 3rem !important;
-		padding: 0.125rem 0.25rem;
-	}
-
-	.input-table-price {
-		width: 4rem !important;
-		padding: 0.125rem 0.25rem;
-	}
-
-	.td-amount {
-		min-width: 6.5rem !important;
-		position: relative;
-	}
-
-	.amount-container {
-		padding-right: 1.75rem !important;
-	}
-
-	.btn-delete-row {
-		right: 0.125rem !important;
-	}
-
-	/* Signatures Section */
-	.signatures-section {
-		justify-content: flex-end;
-		/* Right-aligned like desktop */
-		gap: 2rem;
-		margin-top: 2rem;
-	}
-
-	.signature-box {
-		width: 10rem;
-	}
-}
-
-/* Touch device helpers */
-@media (max-width: 1024px) {
-	.btn-delete-row {
-		opacity: 1 !important;
-	}
-}
 
 /* Typography Scale-up (Make small text slightly bigger) */
 .logo-uploader-text,
