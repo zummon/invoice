@@ -26,9 +26,34 @@
 				"https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@100..900&display=swap",
 			fontstyle: '"Noto Serif Thai", serif',
 		},
+		zh: {
+			name: "中文 (简体)",
+			print: "打印",
+			empty: "清空",
+			share: "分享",
+			copied: "已复制!",
+			uplogo: "上传Logo",
+			addrow: "添加项目",
+			fontsrc:
+				"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap",
+			fontstyle: '"Noto Sans SC", sans-serif',
+		},
+		hi: {
+			name: "हिन्दी",
+			print: "प्रिंट करें",
+			empty: "साफ़ करें",
+			share: "साझा करें",
+			copied: "कॉपी किया गया!",
+			uplogo: "लोगो अपलोड करें",
+			addrow: "मद जोड़ें",
+			fontsrc:
+				"https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&display=swap",
+			fontstyle: '"Noto Sans Devanagari", sans-serif',
+		},
 	};
 	const lbs = {
 		"": {
+			doc: "Document name",
 			no: "No",
 			date: "Date",
 			dueDate: "Due date",
@@ -36,14 +61,17 @@
 			vat: "Value-added tax",
 			wht: "Withholding tax",
 			adjust: "Adjust",
-			client: "Bill to",
+			sendTo: "Send to",
+			client: "Client name",
 			clientid: "Client iD",
 			clientAddress: "Client address",
 			vendorLogo: "Vendor Logo",
 			vendor: "Vendor name",
 			vendorid: "Vendor iD",
 			vendorAddress: "Vendor address",
+			itemDesc: "Product or service name",
 			note: "Note",
+			addnotes: "Add notes or payment terms...",
 			subtotal: "Subtotal",
 			total: "Total",
 			clientSign: "Client signature",
@@ -59,11 +87,12 @@
 		"Tax invoice": {},
 		Receipt: {
 			date: "Received date",
-			client: "Received from",
+			sendTo: "Received from",
 			total: "Paid total",
 			vendorSign: "Receiver signature",
 		},
 		th: {
+			doc: "ชื่อเอกสาร",
 			no: "เลขที่",
 			date: "วันที่",
 			dueDate: "วันที่ครบกำหนด",
@@ -71,14 +100,17 @@
 			vat: "ภาษีมูลค่าเพิ่ม",
 			wht: "ภาษีหัก ณ ที่จ่าย",
 			adjust: "ปรับปรุง",
-			client: "ถึง",
+			sendTo: "ส่งถึง",
+			client: "ชื่อผู้ซื้อ",
 			clientid: "เลขประจำตัวภาษีผู้ซื้อ",
 			clientAddress: "ที่อยู่ผู้ซื้อ",
 			vendorLogo: "โลโก้ผู้ขาย",
 			vendor: "ชื่อผู้ขาย",
 			vendorid: "เลขประจำตัวภาษีผู้ขาย",
 			vendorAddress: "ที่อยู่ผู้ขาย",
+			itemDesc: "ชื่อสินค้าหรือบริการ",
 			note: "หมายเหตุ",
+			addnotes: "เพิ่มหมายเหตุหรือเงื่อนไขการชำระเงิน...",
 			subtotal: "รวม",
 			total: "รวมทั้งสิ้น",
 			clientSign: "ลายเซ็นผู้ซื้อ",
@@ -97,7 +129,7 @@
 		},
 		ใบเสร็จรับเงิน: {
 			date: "วันที่รับเงิน",
-			client: "รับเงินจาก",
+			sendTo: "รับเงินจาก",
 			total: "จ่ายไปทั้งสิ้น",
 			vendorSign: "ลายเซ็นผู้รับเงิน",
 		},
@@ -105,6 +137,88 @@
 			vendorSign: "ลายเซ็นผู้รับเงิน",
 		},
 		ใบเสนอราคา: {},
+		zh: {
+			doc: "文档名称",
+			no: "编号",
+			date: "日期",
+			dueDate: "截至日期",
+			payMethod: "付款方式",
+			vat: "增值税",
+			wht: "扣缴税",
+			adjust: "调整",
+			sendTo: "发送至",
+			client: "客户名称",
+			clientid: "客户税号",
+			clientAddress: "客户地址",
+			vendorLogo: "商家Logo",
+			vendor: "商家名称",
+			vendorid: "商家税号",
+			vendorAddress: "商家地址",
+			itemDesc: "商品或服务名称",
+			note: "备注说明",
+			addnotes: "添加备注或付款条件...",
+			subtotal: "小计",
+			total: "总计",
+			clientSign: "客户签名",
+			vendorSign: "商家签名",
+			desc: "描述说明",
+			price: "价格",
+			qty: "数量",
+			unit: "单位",
+			amount: "金额",
+			currency: "货币",
+		},
+		hi: {
+			doc: "दस्तावेज़ का नाम",
+			no: "संख्या",
+			date: "दिनांक",
+			dueDate: "नियत तारीख",
+			payMethod: "भुगतान का प्रकार",
+			vat: "मूल्य वर्धित कर (VAT)",
+			wht: "स्रोत पर कर कटौती (WHT)",
+			adjust: "समायोजन",
+			sendTo: "सेवा में",
+			client: "ग्राहक का नाम",
+			clientid: "ग्राहक आईडी",
+			clientAddress: "ग्राहक का पता",
+			vendorLogo: "विक्रेता लोगो",
+			vendor: "विक्रेता का नाम",
+			vendorid: "विक्रेता आईडी",
+			vendorAddress: "विक्रेता का पता",
+			itemDesc: "उत्पाद या सेवा का नाम",
+			note: "टिप्पणी",
+			addnotes: "टिप्पणियाँ या भुगतान की शर्तें जोड़ें...",
+			subtotal: "उपयोग",
+			total: "कुल राशि",
+			clientSign: "ग्राहक के हस्ताक्षर",
+			vendorSign: "विक्रेता के हस्ताक्षर",
+			desc: "विवरण",
+			price: "मूल्य",
+			qty: "मात्रा",
+			unit: "इकाई",
+			amount: "राशि",
+			currency: "मुद्रा",
+		},
+		发票: {},
+		送货单: {
+			clientSign: "收货人签名",
+		},
+		收据: {
+			date: "收款日期",
+			sendTo: "收款自",
+			total: "实收总额",
+			vendorSign: "收款人签名",
+		},
+		चालान: {},
+		रसीद: {
+			date: "प्राप्ति तिथि",
+			sendTo: "से प्राप्त किया",
+			total: "भुगतान कुल",
+			vendorSign: "प्राप्तकर्ता के हस्ताक्षर",
+		},
+		"डिलिवरी नोट": {
+			clientSign: "प्राप्तकर्ता के हस्ताक्षर",
+		},
 	};
 
 	const org = {
@@ -212,62 +326,10 @@
 			qry.vendorLogo = "";
 		}
 	}
-	function addRow() {
-		qry.price.push("");
-		qry.qty.push("");
-		qry.desc.push("");
-	}
-	function deleteRow(index) {
-		qry.price.splice(index, 1);
-		qry.qty.splice(index, 1);
-		qry.desc.splice(index, 1);
-	}
-	function clearForm() {
-		qry = { ...org, lang: qry.lang, doc: qry.doc, currency: qry.currency };
-		sharedUrl = "";
-	}
+
 	let showCopied = $state(false);
 	let copiedTimeout;
 
-	function copyLink() {
-		const searchParams = new URLSearchParams();
-		let vendorLogo = "";
-		if (qry.vendorLogo.length > 100) {
-			vendorLogo = qry.vendorLogo;
-			qry.vendorLogo = "";
-		}
-		Object.entries(qry).forEach(([key, value]) => {
-			if (Array.isArray(value)) {
-				value.forEach((v, i) => {
-					if (v !== undefined && v !== null) {
-						searchParams.append(key + "-" + i, v);
-					}
-				});
-			} else {
-				if (value !== undefined && value !== null) {
-					searchParams.append(key, value);
-				}
-			}
-		});
-		qry.vendorLogo = vendorLogo;
-		sharedUrl =
-			window.location.origin +
-			window.location.pathname +
-			"?" +
-			searchParams.toString();
-		navigator.clipboard
-			.writeText(sharedUrl)
-			.then(() => {
-				showCopied = true;
-				clearTimeout(copiedTimeout);
-				copiedTimeout = setTimeout(() => {
-					showCopied = false;
-				}, 3000);
-			})
-			.catch((err) => {
-				console.error("Failed to copy link: ", err);
-			});
-	}
 	onMount(() => {
 		let userLang = navigator.language;
 		if (trns[userLang]) {
@@ -287,6 +349,10 @@
 		if (qry.currency === "") {
 			if (qry.lang === "th") {
 				qry.currency = "฿";
+			} else if (qry.lang === "zh") {
+				qry.currency = "¥";
+			} else if (qry.lang === "hi") {
+				qry.currency = "₹";
 			} else {
 				qry.currency = "$";
 			}
@@ -296,6 +362,10 @@
 			qry.doc = "invoice";
 		} else if (qry.lang == "th") {
 			qry.doc = "ใบแจ้งหนี้";
+		} else if (qry.lang == "zh") {
+			qry.doc = "发票";
+		} else if (qry.lang == "hi") {
+			qry.doc = "चालान";
 		}
 	});
 </script>
@@ -310,11 +380,9 @@
 	{/each}
 </datalist>
 
-<div
-	class="max-w-3xl mx-auto my-4 p-4 flex justify-center print:hidden flex-wrap items-center gap-3 w-full md:w-auto"
->
+<div class="toolbar print-hidden">
 	<!-- Language Switcher -->
-	<div class="relative flex items-center">
+	<div class="lang-switcher-wrapper">
 		<!-- https://heroicons.com/outline language -->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +390,7 @@
 			viewBox="0 0 24 24"
 			stroke-width="2"
 			stroke="currentColor"
-			class="w-4 h-4 text-neutral-500 absolute left-3 pointer-events-none"
+			class="lang-switcher-icon"
 		>
 			<path
 				stroke-linecap="round"
@@ -332,13 +400,17 @@
 		</svg>
 
 		<select
-			class="pl-9 pr-8 py-2 text-sm font-semibold text-neutral-600 hover:text-neutral-800 bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 rounded-xl transition-all cursor-pointer appearance-none outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 field-sizing-content"
+			class="lang-switcher-select"
 			bind:value={qry.lang}
 			onchange={() => {
 				if (qry.lang == "") {
 					qry.doc = "invoice";
 				} else if (qry.lang == "th") {
 					qry.doc = "ใบแจ้งหนี้";
+				} else if (qry.lang == "zh") {
+					qry.doc = "发票";
+				} else if (qry.lang == "hi") {
+					qry.doc = "चालान";
 				}
 			}}
 		>
@@ -354,7 +426,7 @@
 			viewBox="0 0 24 24"
 			stroke-width="2.5"
 			stroke="currentColor"
-			class="w-3.5 h-3.5 text-neutral-400 absolute right-2.5 pointer-events-none"
+			class="lang-switcher-arrow"
 		>
 			<path
 				stroke-linecap="round"
@@ -366,9 +438,10 @@
 
 	<!-- Actions -->
 	<button
-		class="flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-neutral-600 hover:text-neutral-800 bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 rounded-xl transition-all cursor-pointer active:scale-95"
+		class="btn btn-action"
 		onclick={() => {
-			clearForm();
+			qry = { ...org, lang: qry.lang, doc: qry.doc, currency: qry.currency };
+			sharedUrl = "";
 		}}
 	>
 		<svg
@@ -377,7 +450,7 @@
 			viewBox="0 0 24 24"
 			stroke-width="2"
 			stroke="currentColor"
-			class="w-4 h-4"
+			class="btn-icon"
 		>
 			<path
 				stroke-linecap="round"
@@ -389,7 +462,7 @@
 	</button>
 
 	<button
-		class="flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-neutral-600 hover:text-neutral-800 bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 rounded-xl transition-all cursor-pointer active:scale-95"
+		class="btn btn-action"
 		onclick={() => {
 			print();
 		}}
@@ -400,7 +473,7 @@
 			viewBox="0 0 24 24"
 			stroke-width="2"
 			stroke="currentColor"
-			class="w-4 h-4"
+			class="btn-icon"
 		>
 			<path
 				stroke-linecap="round"
@@ -413,10 +486,47 @@
 
 	<!-- Share / Copy Link Button -->
 	<button
-		class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r {showCopied
-			? 'from-emerald-500 to-teal-600 shadow-emerald-500/20'
-			: 'from-cyan-500 to-blue-600 shadow-blue-500/20'} rounded-xl shadow-md hover:opacity-95 active:scale-95 transition-all cursor-pointer"
-		onclick={copyLink}
+		class="btn btn-share"
+		class:copied={showCopied}
+		onclick={() => {
+			const searchParams = new URLSearchParams();
+			let vendorLogo = "";
+			if (qry.vendorLogo.length > 100) {
+				vendorLogo = qry.vendorLogo;
+				qry.vendorLogo = "";
+			}
+			Object.entries(qry).forEach(([key, value]) => {
+				if (Array.isArray(value)) {
+					value.forEach((v, i) => {
+						if (v !== undefined && v !== null) {
+							searchParams.append(key + "-" + i, v);
+						}
+					});
+				} else {
+					if (value !== undefined && value !== null) {
+						searchParams.append(key, value);
+					}
+				}
+			});
+			qry.vendorLogo = vendorLogo;
+			sharedUrl =
+				window.location.origin +
+				window.location.pathname +
+				"?" +
+				searchParams.toString();
+			navigator.clipboard
+				.writeText(sharedUrl)
+				.then(() => {
+					showCopied = true;
+					clearTimeout(copiedTimeout);
+					copiedTimeout = setTimeout(() => {
+						showCopied = false;
+					}, 3000);
+				})
+				.catch((err) => {
+					console.error("Failed to copy link: ", err);
+				});
+		}}
 	>
 		{#if showCopied}
 			<svg
@@ -425,7 +535,7 @@
 				viewBox="0 0 24 24"
 				stroke-width="2.5"
 				stroke="currentColor"
-				class="w-4 h-4 text-emerald-100"
+				class="btn-icon"
 			>
 				<path
 					stroke-linecap="round"
@@ -441,7 +551,7 @@
 				viewBox="0 0 24 24"
 				stroke-width="2"
 				stroke="currentColor"
-				class="w-4 h-4"
+				class="btn-icon"
 			>
 				<path
 					stroke-linecap="round"
@@ -454,20 +564,15 @@
 	</button>
 </div>
 
-<div
-	class="w-fit p-12 mx-auto bg-white rounded-3xl border border-neutral-100 shadow-xl shadow-neutral-100/40 print:p-0 print:shadow-none print:border-none print:rounded-none"
-	style="font-family: {txt.fontstyle};"
->
+<div class="invoice-card" style="font-family: {txt.fontstyle};">
 	<!-- Header Section -->
-	<div class="flex flex-wrap justify-between items-start gap-8 mb-12">
-		<div class="">
+	<div class="invoice-header">
+		<div class="invoice-header-left">
 			<!-- Left: Logo & Vendor Details -->
-			<div class="flex flex-wrap items-start gap-6">
+			<div class="vendor-logo-wrapper">
 				<!-- Logo upload box -->
 				{#if !qry.vendorLogo}
-					<label
-						class="flex flex-col items-center justify-center w-40 h-24 border-2 border-dashed border-neutral-200 hover:border-cyan-500 rounded-2xl bg-neutral-50/50 hover:bg-cyan-50/20 cursor-pointer transition-all duration-200 group print:hidden"
-					>
+					<label class="logo-uploader">
 						<input type="file" class="hidden" onchange={uploadLogo} />
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -475,7 +580,7 @@
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6 text-neutral-400 group-hover:text-cyan-600 transition-colors"
+							class="logo-uploader-icon"
 						>
 							<path
 								stroke-linecap="round"
@@ -483,27 +588,22 @@
 								d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
 							/>
 						</svg>
-						<span
-							class="text-xs text-neutral-400 font-semibold mt-1 group-hover:text-cyan-600 transition-colors"
-							>{txt.uplogo}</span
-						>
+						<span class="logo-uploader-text">{txt.uplogo}</span>
 					</label>
 				{:else}
-					<div class="relative group w-auto h-auto inline-block">
+					<div class="logo-preview-container">
 						<img
-							class="max-h-20 max-w-[200px] object-contain rounded-lg"
+							class="logo-preview"
 							src={qry.vendorLogo}
 							alt={tag.vendorLogo}
 						/>
-						<label
-							class="absolute inset-0 bg-black/40 text-white rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all cursor-pointer print:hidden text-xs font-semibold"
-						>
+						<label class="logo-preview-overlay">
 							<input type="file" class="hidden" onchange={uploadLogo} />
 							Change Logo
 						</label>
 						<!-- svelte-ignore a11y_consider_explicit_label -->
 						<button
-							class="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1 rounded-full hover:bg-red-200 transition-colors border border-red-200 print:hidden cursor-pointer"
+							class="btn-remove-logo"
 							onclick={() => (qry.vendorLogo = "")}
 						>
 							<svg
@@ -512,7 +612,7 @@
 								viewBox="0 0 24 24"
 								stroke-width="2.5"
 								stroke="currentColor"
-								class="w-3 h-3"
+								class="btn-remove-logo-icon"
 							>
 								<path
 									stroke-linecap="round"
@@ -525,21 +625,21 @@
 				{/if}
 
 				<!-- Vendor details inputs -->
-				<div class="flex flex-col gap-1 w-full md:w-64">
+				<div class="vendor-details">
 					<input
-						class="font-bold text-xl text-neutral-800 placeholder-neutral-300 bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-0.5 -mx-2 transition-all outline-none w-full"
+						class="input-text input-vendor-name"
 						type="text"
 						placeholder={tag.vendor}
 						bind:value={qry.vendor}
 					/>
 					<input
-						class="text-xs font-semibold text-neutral-500 placeholder-neutral-300 bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-0.5 -mx-2 transition-all outline-none w-full"
+						class="input-text input-vendor-id"
 						type="text"
 						placeholder={tag.vendorid}
 						bind:value={qry.vendorid}
 					/>
 					<textarea
-						class="text-sm text-neutral-500 placeholder-neutral-300 bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-1 -mx-2 transition-all outline-none resize-none overflow-hidden h-auto w-full field-sizing-content"
+						class="textarea-auto textarea-vendor-address"
 						placeholder={tag.vendorAddress}
 						bind:value={qry.vendorAddress}
 					></textarea>
@@ -547,27 +647,25 @@
 			</div>
 
 			<!-- Billing Details (Bill To) -->
-			<div
-				class="p-6 mt-8 bg-neutral-50/50 hover:bg-neutral-50/80 rounded-2xl border border-neutral-100/70 transition-colors"
-			>
-				<h3 class="text-xs font-bold text-neutral-400 tracking-wider mb-2">
-					{tag.client}
+			<div class="client-details">
+				<h3 class="client-title">
+					{tag.sendTo}
 				</h3>
 				<div class="flex flex-col gap-1">
 					<input
-						class="font-bold text-neutral-800 placeholder-neutral-300 bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-0.5 -mx-2 transition-all outline-none w-full"
+						class="input-text input-client-name"
 						type="text"
-						placeholder="Client name"
+						placeholder={tag.client}
 						bind:value={qry.client}
 					/>
 					<input
-						class="text-xs font-medium text-neutral-500 placeholder-neutral-300 bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-0.5 -mx-2 transition-all outline-none w-full"
+						class="input-text input-client-id"
 						type="text"
 						placeholder={tag.clientid}
 						bind:value={qry.clientid}
 					/>
 					<textarea
-						class="text-sm text-neutral-600 placeholder-neutral-300 bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-1 -mx-2 transition-all outline-none resize-none overflow-hidden h-auto w-full field-sizing-content"
+						class="textarea-auto textarea-client-address"
 						placeholder={tag.clientAddress}
 						bind:value={qry.clientAddress}
 					></textarea>
@@ -576,109 +674,66 @@
 		</div>
 
 		<!-- Right: Invoice Title and Metadata -->
-		<div class="flex flex-col items-start md:items-end gap-3">
+		<div class="invoice-meta">
 			<input
-				class="text-3xl font-extrabold tracking-tight text-neutral-900 bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2 py-0.5 -mx-2 transition-all outline-none w-full md:text-right"
+				class="input-text input-doc-title"
 				type="text"
 				list="docs"
-				placeholder="INVOICE"
+				placeholder={tag.doc}
 				bind:value={qry.doc}
 			/>
 
-			<div class="flex flex-col gap-1 w-full md:w-60">
+			<div class="meta-fields-group">
 				<!-- Invoice No -->
-				<div
-					class="flex justify-between items-center text-sm border-b border-neutral-100 pb-1"
-				>
-					<span class="text-neutral-400 font-semibold text-xs tracking-wider"
-						>{tag.no}</span
-					>
+				<div class="meta-row">
+					<span class="meta-label">{tag.no}</span>
 					<input
-						class="font-semibold text-neutral-800 text-right bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5 transition-all outline-none w-32"
+						class="input-text input-meta-value"
 						type="text"
 						bind:value={qry.no}
 					/>
 				</div>
 				<!-- Date -->
-				<div
-					class="flex justify-between items-center text-sm border-b border-neutral-100 pb-1"
-				>
-					<span class="text-neutral-400 font-semibold text-xs tracking-wider"
-						>{tag.date}</span
-					>
+				<div class="meta-row">
+					<span class="meta-label">{tag.date}</span>
 					<div
 						class="grow text-right hidden print:block font-medium text-neutral-800"
 					>
 						{formatDate(qry.date)}
 					</div>
 					<input
-						class="text-neutral-800 text-right bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5 transition-all outline-none w-36 print:hidden"
+						class="input-text input-meta-date print-hidden"
 						type="date"
 						bind:value={qry.date}
 					/>
 				</div>
 				<!-- Due Date -->
-				<div
-					class="flex justify-between items-center text-sm border-b border-neutral-100 pb-1 {qry.dueDate
-						? ''
-						: 'print:hidden opacity-50'}"
-				>
-					<label class="flex items-center gap-1 cursor-pointer">
-						<input
-							class="print:hidden accent-cyan-500"
-							type="checkbox"
-							checked={Boolean(qry.dueDate)}
-							onchange={(e) => {
-								let check = e.currentTarget.checked;
-								if (check) {
-									qry.dueDate = rawDate();
-								} else {
-									qry.dueDate = "";
-								}
-							}}
-						/>
-						<span class="text-neutral-400 font-semibold text-xs tracking-wider"
-							>{tag.dueDate}</span
-						>
-					</label>
+				<div class="meta-row" class:print-hidden={!qry.dueDate} style={qry.dueDate ? "" : "opacity: 0.5;"}>
+					<span class="meta-label">{tag.dueDate}</span>
 					<div
 						class="grow text-right hidden print:block font-medium text-neutral-800"
 					>
 						{formatDate(qry.dueDate)}
 					</div>
-					{#if qry.dueDate}
-						<input
-							class="text-neutral-800 text-right bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5 transition-all outline-none w-36 print:hidden"
-							type="date"
-							bind:value={qry.dueDate}
-						/>
-					{:else}
-						<span
-							class="text-neutral-300 text-xs italic font-medium print:hidden"
-							>Not Set</span
-						>
-					{/if}
+					<input
+						class="input-text input-meta-date print-hidden"
+						type="date"
+						bind:value={qry.dueDate}
+					/>
 				</div>
 				<!-- Payment Method -->
-				<div class="flex justify-between items-start text-sm pt-1">
-					<span
-						class="text-neutral-400 font-semibold text-xs tracking-wider pt-0.5"
-						>{tag.payMethod}</span
-					>
+				<div class="meta-row payment">
+					<span class="meta-label">{tag.payMethod}</span>
 					<textarea
-						class="text-neutral-800 text-right bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5 transition-all outline-none resize-none overflow-hidden w-36 field-sizing-content"
+						class="textarea-auto input-meta-payment"
 						bind:value={qry.payMethod}
 					></textarea>
 				</div>
 				<!-- Currency (Hidden in Print) -->
-				<div
-					class="flex justify-between items-center text-sm border-t border-dashed border-neutral-200 mt-1 pt-1 print:hidden"
-				>
-					<span class="text-neutral-400 font-semibold text-xs tracking-wider"
-						>{tag.currency}</span
-					>
+				<div class="meta-row currency print-hidden">
+					<span class="meta-label">{tag.currency}</span>
 					<input
-						class="text-cyan-500 text-right font-bold bg-transparent hover:bg-neutral-50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5 transition-all outline-none w-16"
+						class="input-text input-meta-currency"
 						type="text"
 						placeholder="$, ฿, €"
 						bind:value={qry.currency}
@@ -689,63 +744,56 @@
 	</div>
 
 	<!-- Table Area -->
-	<table class="w-full border-collapse mt-8">
+	<div class="invoice-table-wrapper">
+		<table class="invoice-table">
 		<thead>
-			<tr
-				class="text-xs font-bold text-neutral-400 tracking-wider border-b border-neutral-200"
-			>
-				<th class="pb-3 text-left font-semibold">{tag.desc}</th>
-				<th class="pb-3 text-center w-24 font-semibold">{tag.qty}</th>
-				<th class="pb-3 text-center w-28 font-semibold">{tag.price}</th>
-				<th class="pb-3 text-right w-36 pr-6 font-semibold">{tag.amount}</th>
+			<tr>
+				<th class="th-desc">{tag.desc}</th>
+				<th class="th-qty">{tag.qty}</th>
+				<th class="th-price">{tag.price}</th>
+				<th class="th-amount">{tag.amount}</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each qry.desc as _, index}
-				<tr
-					class="border-b border-neutral-100 hover:bg-neutral-50/30 transition-colors group"
-				>
-					<td class="break-all p-2 align-middle">
+				<tr>
+					<td class="td-desc">
 						<span class="hidden print:inline text-sm text-neutral-800"
 							>{qry.desc[index]}</span
 						>
 						<input
-							class="w-full bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-2.5 py-1.5 text-sm outline-none transition-all print:hidden"
+							class="input-text input-table-desc print-hidden"
 							type="text"
-							placeholder="Item description"
+							placeholder={tag.itemDesc}
 							bind:value={qry.desc[index]}
 						/>
 					</td>
-					<td class="text-center p-2 align-middle">
+					<td class="td-qty" data-label={tag.qty}>
 						<span class="hidden print:inline text-sm text-neutral-800">
 							{formatNumber(qry.qty[index])}
 						</span>
 						<input
-							class="w-20 text-center bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-1.5 text-sm outline-none transition-all print:hidden"
+							class="input-text input-table-qty print-hidden"
 							type="number"
 							placeholder="0"
 							bind:value={qry.qty[index]}
 						/>
 					</td>
-					<td class="text-center p-2 align-middle">
+					<td class="td-price" data-label={tag.price}>
 						<span class="hidden print:inline text-sm text-neutral-800">
-							{#if qry.currency}{qry.currency}
-							{/if}{formatNumber(qry.price[index])}
+							{formatNumber(qry.price[index])}
 						</span>
 						<input
-							class="w-24 text-center bg-transparent hover:bg-neutral-100/50 focus:bg-white border-0 focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-1.5 text-sm outline-none transition-all print:hidden"
+							class="input-text input-table-price print-hidden"
 							type="number"
 							placeholder="0.00"
 							bind:value={qry.price[index]}
 						/>
 					</td>
-					<td
-						class="text-right p-2 align-middle font-medium text-neutral-800 relative"
-					>
-						<div class="flex items-center justify-end gap-2 pr-6">
+					<td class="td-amount" data-label={tag.amount}>
+						<div class="amount-container">
 							<span>
-								{#if qry.currency}{qry.currency}
-								{/if}{formatNumber(
+								{formatNumber(
 									Number(qry.qty[index]) * Number(qry.price[index]),
 								)}
 							</span>
@@ -753,9 +801,11 @@
 						<!-- Delete button aligned absolute-right, hidden in print, only showing opacity on row hover -->
 						<!-- svelte-ignore a11y_consider_explicit_label -->
 						<button
-							class="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-300 hover:text-red-500 cursor-pointer print:hidden opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg hover:bg-red-50"
+							class="btn-delete-row print-hidden"
 							onclick={() => {
-								deleteRow(index);
+								qry.price.splice(index, 1);
+								qry.qty.splice(index, 1);
+								qry.desc.splice(index, 1);
 							}}
 						>
 							<svg
@@ -764,7 +814,7 @@
 								viewBox="0 0 24 24"
 								stroke-width="2.5"
 								stroke="currentColor"
-								class="w-4 h-4"
+								class="btn-delete-row-icon"
 							>
 								<path
 									stroke-linecap="round"
@@ -778,26 +828,27 @@
 			{/each}
 		</tbody>
 		<tfoot>
-			<tr class="border-t border-neutral-200">
-				<td class="p-2 print:hidden"></td>
-				<td
-					class="p-4 text-right text-sm font-bold text-neutral-400 tracking-wider"
-					colspan="2"
-				>
+			<tr>
+				<td class="print-hidden"></td>
+				<td class="tfoot-label" colspan="2">
 					{tag.subtotal}
 				</td>
-				<td class="text-right p-4 font-bold text-neutral-800 pr-8">
-					{#if qry.currency}{qry.currency}
-					{/if}{formatNumber(amount)}
+				<td class="tfoot-value">
+					{formatNumber(amount)}
 				</td>
 			</tr>
 		</tfoot>
 	</table>
+</div>
 
 	<!-- Add Line Item Button (Dashed block) -->
 	<button
-		onclick={addRow}
-		class="flex items-center justify-center gap-2 w-full py-3 mt-4 border border-dashed border-neutral-200 hover:border-cyan-500 rounded-xl text-sm font-semibold text-neutral-500 hover:text-cyan-600 bg-white hover:bg-cyan-50/10 active:scale-[0.99] transition-all cursor-pointer print:hidden"
+		onclick={() => {
+			qry.price.push("");
+			qry.qty.push("");
+			qry.desc.push("");
+		}}
+		class="btn-add-row print-hidden"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -805,7 +856,7 @@
 			viewBox="0 0 24 24"
 			stroke-width="2.5"
 			stroke="currentColor"
-			class="w-4 h-4"
+			class="btn-add-row-icon"
 		>
 			<path
 				stroke-linecap="round"
@@ -817,152 +868,104 @@
 	</button>
 
 	<!-- Footer Notes & Calculations Breakdown -->
-	<div
-		class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 pt-8 border-t border-neutral-100"
-	>
+	<div class="invoice-footer">
 		<!-- Left: Notes & Conditions -->
-		<div class="flex flex-col gap-2">
-			<label
-				for="invoice-note"
-				class="text-xs font-bold text-neutral-400 tracking-wider"
-				>{tag.note}</label
-			>
+		<div class="notes-section">
+			<label for="invoice-note" class="notes-label">
+				{tag.note}
+			</label>
 			<textarea
 				id="invoice-note"
-				class="w-full text-sm text-neutral-600 bg-transparent hover:bg-neutral-50 focus:bg-white border-0 hover:border hover:border-neutral-100 focus:ring-1 focus:ring-cyan-500 rounded-xl p-3 transition-all outline-none resize-none overflow-hidden h-auto field-sizing-content"
-				placeholder="Add notes or payment terms..."
+				class="textarea-notes"
+				placeholder={tag.addnotes}
 				bind:value={qry.note}
 			></textarea>
 		</div>
 
 		<!-- Right: Totals Breakdown -->
-		<div class="flex flex-col gap-2.5">
+		<div class="totals-section">
 			<!-- VAT -->
-			<div class="flex justify-between items-center text-sm">
-				<div class="flex items-center gap-1.5">
-					<span class="text-neutral-500 font-medium">{tag.vat}</span>
-					<div class="">
-						<input
-							class="bg-neutral-50 hover:bg-neutral-100 focus:bg-white text-center text-neutral-700 border border-neutral-200 rounded px-1.5 py-0.5 text-xs outline-none field-sizing-content transition-all font-semibold"
-							type="number"
-							step="0.01"
-							oninput={(e) => {
-								qry.vatRate = Number(e.currentTarget.value) / 100;
-							}}
-						/>
-						<span class="font-semibold text-neutral-700">%</span>
-					</div>
-				</div>
-				<div class="text-right font-semibold text-neutral-800">
-					{#if qry.currency}{qry.currency}
-					{/if}{formatNumber(vatAmount)}
+			<div class="total-row">
+				<label class="total-row-label">
+					{tag.vat}
+					<input
+						class="input-total-rate"
+						type="number"
+						step="0.01"
+						value={(Number(qry.vatRate) * 100).toFixed(2)}
+						oninput={(e) => {
+							qry.vatRate = String(Number(e.currentTarget.value) / 100);
+						}}
+					/>
+					<span class="font-semibold">%</span>
+				</label>
+				<div class="total-row-value">
+					{formatNumber(vatAmount)}
 				</div>
 			</div>
 
 			<!-- WHT -->
-			<div
-				class="flex justify-between items-center text-sm {Number(qry.whtRate)
-					? ''
-					: 'print:hidden opacity-50'}"
-			>
-				<div class="flex items-center gap-1.5">
-					<label
-						class="flex items-center gap-1 cursor-pointer select-none print:hidden"
-					>
-						<input
-							class="accent-cyan-500"
-							type="checkbox"
-							checked={Number(qry.whtRate) > 0}
-							onchange={(e) => {
-								let check = e.currentTarget.checked;
-								if (check) {
-									qry.whtRate = "0.01";
-								} else {
-									qry.whtRate = "0.00";
-								}
-							}}
-						/>
-						<span class="text-neutral-500 font-medium">{tag.wht}</span>
-					</label>
-					<div class="">
-						<input
-							class="bg-neutral-50 hover:bg-neutral-100 focus:bg-white text-center text-neutral-700 border border-neutral-200 rounded px-1.5 py-0.5 text-xs outline-none field-sizing-content transition-all font-semibold"
-							type="number"
-							step="0.01"
-							oninput={(e) => {
-								qry.whtRate = Number(e.currentTarget.value) / 100;
-							}}
-						/>
-						<span class="font-semibold text-neutral-700">%</span>
-					</div>
-				</div>
-				<div class="text-right font-semibold text-neutral-800">
-					{#if qry.currency}{qry.currency}
-					{/if}{formatNumber(whtAmount)}
+			<div class="total-row" class:print-hidden={!Number(qry.whtRate)} style={Number(qry.whtRate) ? "" : "opacity: 0.5;"}>
+				<label class="total-row-label">
+					{tag.wht}
+					<input
+						class="input-total-rate"
+						type="number"
+						step="0.01"
+						value={(Number(qry.whtRate) * 100).toFixed(2)}
+						oninput={(e) => {
+							qry.whtRate = String(Number(e.currentTarget.value) / 100);
+						}}
+					/>
+					<span class="font-semibold">%</span>
+				</label>
+				<div class="total-row-value">
+					{formatNumber(whtAmount)}
 				</div>
 			</div>
 
 			<!-- Adjustment -->
-			<div class="flex justify-between items-center text-sm">
-				<span class="text-neutral-500 font-medium">{tag.adjust}</span>
-				<div
-					class="text-right font-semibold text-neutral-800 hidden print:block"
-				>
-					{#if qry.currency}{qry.currency}
-					{/if}{formatNumber(qry.adjust)}
+			<div class="total-row">
+				<span class="total-row-label">{tag.adjust}</span>
+				<div class="total-row-value">
+					<span class="hidden print:inline">
+						{formatNumber(qry.adjust)}
+					</span>
+					<input
+						class="input-adjust-value print-hidden"
+						type="number"
+						bind:value={qry.adjust}
+					/>
 				</div>
-				<input
-					class="bg-neutral-50 hover:bg-neutral-100 focus:bg-white text-right font-medium border border-neutral-200 rounded px-2 py-0.5 text-xs outline-none w-24 print:hidden transition-all"
-					type="number"
-					bind:value={qry.adjust}
-				/>
 			</div>
 
 			<!-- Total Due -->
-			<div
-				class="flex justify-between items-center font-bold text-xl rounded-2xl px-6 py-4.5 mt-3 shadow-lg shadow-neutral-900/10 text-neutral-900 print:shadow-none print:border print:border-neutral-200 font-sans"
-			>
-				<span class="tracking-wide text-xs text-neutral-500">{tag.total}</span>
-				<span class="text-right text-2xl tracking-tight">
-					{#if qry.currency}{qry.currency}
-					{/if}{formatNumber(totalAmount)}
+			<div class="total-due-card">
+				<span class="total-due-label">{tag.total}</span>
+				<span class="total-due-value">
+					{formatNumber(totalAmount)}
 				</span>
 			</div>
 		</div>
 	</div>
 
 	<!-- Signatures -->
-	<div
-		class="flex flex-wrap justify-end gap-16 mt-16 pt-8 border-t border-neutral-100"
-	>
-		<div class="text-center w-52">
-			<div class="h-16 flex items-end justify-center">
+	<div class="signatures-section">
+		<div class="signature-box">
+			<div class="signature-line-wrapper">
 				<!-- Placeholder for signature -->
 			</div>
-			<div
-				class="border-t border-neutral-300 pt-2 text-xs font-semibold text-neutral-500 tracking-wider"
-			>
+			<div class="signature-label">
 				{tag.vendorSign}
 			</div>
 		</div>
-		<div class="text-center w-52">
-			<div class="h-16 flex items-end justify-center">
+		<div class="signature-box">
+			<div class="signature-line-wrapper">
 				<!-- Placeholder for signature -->
 			</div>
-			<div
-				class="border-t border-neutral-300 pt-2 text-xs font-semibold text-neutral-500 tracking-wider"
-			>
+			<div class="signature-label">
 				{tag.clientSign}
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="print:hidden text-center px-2 py-4 lg:py-6 text-neutral-600">
-	Made by Ai, <a
-		class="underline"
-		target="_blank"
-		href="https://github.com/zummon">Teerapat Anantarattanachai</a
-	><br />
-	Something breaks, needs upgrade. Let me know<br />
 </div>
