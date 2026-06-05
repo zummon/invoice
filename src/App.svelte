@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from "svelte";
+	import { onMount, flushSync } from "svelte";
 
 	const trns = {
 		"": {
@@ -9,6 +9,7 @@
 			share: "Share",
 			copied: "Copied!",
 			uplogo: "Upload Logo",
+			pastelogo: "Or paste image URL...",
 			addrow: "Add Line item",
 			fontsrc:
 				"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
@@ -21,6 +22,7 @@
 			share: "แชร์",
 			copied: "คัดลอกแล้ว!",
 			uplogo: "เลือกโลโก้",
+			pastelogo: "หรือวางลิงก์รูปภาพ...",
 			addrow: "เพิ่มบรรทัด",
 			fontsrc:
 				"https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@100..900&display=swap",
@@ -33,6 +35,7 @@
 			share: "分享",
 			copied: "已复制!",
 			uplogo: "上传Logo",
+			pastelogo: "或粘贴图片链接...",
 			addrow: "添加项目",
 			fontsrc:
 				"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap",
@@ -45,6 +48,7 @@
 			share: "साझा करें",
 			copied: "कॉपी किया गया!",
 			uplogo: "लोगो अपलोड करें",
+			pastelogo: "या छवि URL पेस्ट करें...",
 			addrow: "मद जोड़ें",
 			fontsrc:
 				"https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&display=swap",
@@ -329,6 +333,7 @@
 
 	let showCopied = $state(false);
 	let copiedTimeout;
+	let isPrinting = $state(false);
 
 	onMount(() => {
 		let userLang = navigator.language;
@@ -367,6 +372,22 @@
 		} else if (qry.lang == "hi") {
 			qry.doc = "चालान";
 		}
+
+		const before = () => {
+			flushSync(() => {
+				isPrinting = true;
+			});
+		};
+		const after = () => {
+			isPrinting = false;
+		};
+		window.addEventListener("beforeprint", before);
+		window.addEventListener("afterprint", after);
+
+		return () => {
+			window.removeEventListener("beforeprint", before);
+			window.removeEventListener("afterprint", after);
+		};
 	});
 </script>
 
@@ -401,8 +422,8 @@
 
 		<select
 			class="lang-switcher-select"
-			bind:value={qry.lang}
-			onchange={() => {
+			onchange={(e) => {
+				qry.lang = e.currentTarget.value;
 				if (qry.lang == "") {
 					qry.doc = "invoice";
 				} else if (qry.lang == "th") {
@@ -491,7 +512,7 @@
 		onclick={() => {
 			const searchParams = new URLSearchParams();
 			let vendorLogo = "";
-			if (qry.vendorLogo.length > 100) {
+			if (qry.vendorLogo && qry.vendorLogo.startsWith("data:")) {
 				vendorLogo = qry.vendorLogo;
 				qry.vendorLogo = "";
 			}
@@ -510,10 +531,7 @@
 			});
 			qry.vendorLogo = vendorLogo;
 			sharedUrl =
-				window.location.origin +
-				window.location.pathname +
-				"?" +
-				searchParams.toString();
+				"https://codepen.io/zummon/full/wvLrqBe?" + searchParams.toString();
 			navigator.clipboard
 				.writeText(sharedUrl)
 				.then(() => {
@@ -572,24 +590,32 @@
 			<div class="vendor-logo-wrapper">
 				<!-- Logo upload box -->
 				{#if !qry.vendorLogo}
-					<label class="logo-uploader">
-						<input type="file" class="hidden" onchange={uploadLogo} />
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="logo-uploader-icon"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-							/>
-						</svg>
-						<span class="logo-uploader-text">{txt.uplogo}</span>
-					</label>
+					<div class="logo-uploader-group print-hidden">
+						<label class="logo-uploader">
+							<input type="file" class="hidden" onchange={uploadLogo} />
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="logo-uploader-icon"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+								/>
+							</svg>
+							<span class="logo-uploader-text">{txt.uplogo}</span>
+						</label>
+						<input
+							type="text"
+							class="input-logo-url"
+							placeholder={txt.pastelogo}
+							bind:value={qry.vendorLogo}
+						/>
+					</div>
 				{:else}
 					<div class="logo-preview-container">
 						<img
@@ -603,8 +629,10 @@
 						</label>
 						<!-- svelte-ignore a11y_consider_explicit_label -->
 						<button
-							class="btn-remove-logo"
-							onclick={() => (qry.vendorLogo = "")}
+							class="btn-remove-logo print-hidden"
+							onclick={() => {
+								qry.vendorLogo = "";
+							}}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -696,15 +724,15 @@
 				<!-- Date -->
 				<div class="meta-row">
 					<span class="meta-label">{tag.date}</span>
-					<div
-						class="grow text-right hidden print:block font-medium text-neutral-800"
-					>
-						{formatDate(qry.date)}
-					</div>
 					<input
-						class="input-text input-meta-date print-hidden"
-						type="date"
-						bind:value={qry.date}
+						class="input-text input-meta-date"
+						type={isPrinting ? "text" : "date"}
+						value={isPrinting ? formatDate(qry.date) : qry.date}
+						oninput={(e) => {
+							if (!isPrinting) {
+								qry.date = e.currentTarget.value;
+							}
+						}}
 					/>
 				</div>
 				<!-- Due Date -->
@@ -714,15 +742,15 @@
 					style={qry.dueDate ? "" : "opacity: 0.5;"}
 				>
 					<span class="meta-label">{tag.dueDate}</span>
-					<div
-						class="grow text-right hidden print:block font-medium text-neutral-800"
-					>
-						{formatDate(qry.dueDate)}
-					</div>
 					<input
-						class="input-text input-meta-date print-hidden"
-						type="date"
-						bind:value={qry.dueDate}
+						class="input-text input-meta-date"
+						type={isPrinting ? "text" : "date"}
+						value={isPrinting ? formatDate(qry.dueDate) : qry.dueDate}
+						oninput={(e) => {
+							if (!isPrinting) {
+								qry.dueDate = e.currentTarget.value;
+							}
+						}}
 					/>
 				</div>
 				<!-- Payment Method -->
@@ -762,36 +790,40 @@
 				{#each qry.desc as _, index}
 					<tr>
 						<td class="td-desc">
-							<span class="hidden print:inline text-sm text-neutral-800"
-								>{qry.desc[index]}</span
-							>
-							<input
-								class="input-text input-table-desc print-hidden"
-								type="text"
+							<textarea
+								class="textarea-auto input-table-desc"
 								placeholder={tag.itemDesc}
 								bind:value={qry.desc[index]}
-							/>
+							></textarea>
 						</td>
 						<td class="td-qty" data-label={tag.qty}>
-							<span class="hidden print:inline text-sm text-neutral-800">
-								{formatNumber(qry.qty[index])}
-							</span>
 							<input
-								class="input-text input-table-qty print-hidden"
-								type="number"
+								class="input-text input-table-qty"
+								type={isPrinting ? "text" : "number"}
 								placeholder="0"
-								bind:value={qry.qty[index]}
+								value={isPrinting
+									? formatNumber(qry.qty[index])
+									: qry.qty[index]}
+								oninput={(e) => {
+									if (!isPrinting) {
+										qry.qty[index] = e.currentTarget.value;
+									}
+								}}
 							/>
 						</td>
 						<td class="td-price" data-label={tag.price}>
-							<span class="hidden print:inline text-sm text-neutral-800">
-								{formatNumber(qry.price[index])}
-							</span>
 							<input
-								class="input-text input-table-price print-hidden"
-								type="number"
+								class="input-text input-table-price"
+								type={isPrinting ? "text" : "number"}
 								placeholder="0.00"
-								bind:value={qry.price[index]}
+								value={isPrinting
+									? formatNumber(qry.price[index])
+									: qry.price[index]}
+								oninput={(e) => {
+									if (!isPrinting) {
+										qry.price[index] = e.currentTarget.value;
+									}
+								}}
 							/>
 						</td>
 						<td class="td-amount" data-label={tag.amount}>
@@ -894,11 +926,15 @@
 					{tag.vat}
 					<input
 						class="input-total-rate"
-						type="number"
+						type={isPrinting ? "text" : "number"}
 						step="0.01"
-						value={(Number(qry.vatRate) * 100).toFixed(2)}
+						value={isPrinting
+							? formatNumber(Number(qry.vatRate) * 100)
+							: (Number(qry.vatRate) * 100).toFixed(2)}
 						oninput={(e) => {
-							qry.vatRate = String(Number(e.currentTarget.value) / 100);
+							if (!isPrinting) {
+								qry.vatRate = String(Number(e.currentTarget.value) / 100);
+							}
 						}}
 					/>
 					<span class="font-semibold">%</span>
@@ -918,11 +954,15 @@
 					{tag.wht}
 					<input
 						class="input-total-rate"
-						type="number"
+						type={isPrinting ? "text" : "number"}
 						step="0.01"
-						value={(Number(qry.whtRate) * 100).toFixed(2)}
+						value={isPrinting
+							? formatNumber(Number(qry.whtRate) * 100)
+							: (Number(qry.whtRate) * 100).toFixed(2)}
 						oninput={(e) => {
-							qry.whtRate = String(Number(e.currentTarget.value) / 100);
+							if (!isPrinting) {
+								qry.whtRate = String(Number(e.currentTarget.value) / 100);
+							}
 						}}
 					/>
 					<span class="font-semibold">%</span>
@@ -933,16 +973,22 @@
 			</div>
 
 			<!-- Adjustment -->
-			<div class="total-row">
+			<div
+				class="total-row"
+				class:print-hidden={!Number(qry.adjust)}
+				style={Number(qry.adjust) ? "" : "opacity: 0.5;"}
+			>
 				<span class="total-row-label">{tag.adjust}</span>
 				<div class="total-row-value">
-					<span class="hidden print:inline">
-						{formatNumber(qry.adjust)}
-					</span>
 					<input
-						class="input-adjust-value print-hidden"
-						type="number"
-						bind:value={qry.adjust}
+						class="input-adjust-value"
+						type={isPrinting ? "text" : "number"}
+						value={isPrinting ? formatNumber(qry.adjust) : qry.adjust}
+						oninput={(e) => {
+							if (!isPrinting) {
+								qry.adjust = e.currentTarget.value;
+							}
+						}}
 					/>
 				</div>
 			</div>

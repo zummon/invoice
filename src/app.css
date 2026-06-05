@@ -38,7 +38,10 @@
 	padding: 0;
 }
 
-input, select, textarea, button {
+input,
+select,
+textarea,
+button {
 	font-family: inherit;
 }
 
@@ -252,6 +255,37 @@ body {
 	color: var(--color-primary-hover);
 }
 
+.logo-uploader-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 8rem;
+}
+
+.input-logo-url {
+	font-size: 0.75rem;
+	padding: 0.375rem 0.5rem;
+	border: 1px solid var(--color-border);
+	border-radius: 0.5rem;
+	background-color: var(--color-card-bg);
+	color: var(--color-text-muted);
+	outline: none;
+	transition: all 0.2s ease;
+	text-align: center;
+	width: 100%;
+}
+
+.input-logo-url:hover {
+	border-color: var(--color-border-light);
+	background-color: #fafafa;
+}
+
+.input-logo-url:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 1px var(--color-primary);
+	background-color: #ffffff;
+}
+
 .logo-preview-container {
 	position: relative;
 	display: inline-block;
@@ -319,7 +353,6 @@ body {
 }
 
 .input-text,
-.input-number,
 .textarea-auto {
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -331,14 +364,18 @@ body {
 	width: 100%;
 }
 
+.textarea-auto {
+	resize: none;
+	overflow: hidden;
+	field-sizing: content;
+}
+
 .input-text:hover,
-.input-number:hover,
 .textarea-auto:hover {
 	background-color: var(--color-border-light);
 }
 
 .input-text:focus,
-.input-number:focus,
 .textarea-auto:focus {
 	background-color: #ffffff;
 	border-color: var(--color-primary);
@@ -486,18 +523,7 @@ body {
 	width: 4rem;
 }
 
-/* Checkbox toggle */
-.checkbox-label {
-	display: flex;
-	align-items: center;
-	gap: 0.25rem;
-	cursor: pointer;
-	user-select: none;
-}
 
-.checkbox-custom {
-	accent-color: var(--color-primary);
-}
 
 /* Invoice items table */
 .invoice-table {
@@ -569,6 +595,7 @@ body {
 }
 
 .amount-container {
+	font-size: 0.875rem;
 	display: flex;
 	align-items: center;
 	justify-content: end;
@@ -578,16 +605,24 @@ body {
 
 .input-table-desc {
 	width: 100%;
+	resize: none;
+	overflow: hidden;
+	field-sizing: content;
+	display: block;
 }
 
 .input-table-qty {
 	text-align: center;
-	width: 5rem;
+	width: auto;
+	min-width: 2.5rem;
+	field-sizing: content;
 }
 
 .input-table-price {
 	text-align: center;
-	width: 6rem;
+	width: auto;
+	min-width: 4rem;
+	field-sizing: content;
 }
 
 .btn-delete-row {
@@ -790,7 +825,9 @@ body {
 	padding: 0.125rem 0.5rem;
 	font-size: 0.75rem;
 	outline: none;
-	width: 6rem;
+	width: auto;
+	min-width: 4rem;
+	field-sizing: content;
 	transition: all 0.15s ease;
 }
 
@@ -951,11 +988,7 @@ body {
 .input-total-rate,
 .input-adjust-value,
 .total-due-label,
-.signature-label,
-.not-set-placeholder,
-.td-qty::before,
-.td-price::before,
-.td-amount::before {
+.signature-label {
 	font-size: 0.875rem !important;
 	/* Scaled from 0.75rem */
 }
@@ -1000,6 +1033,10 @@ body {
 
 .font-medium {
 	font-weight: 500 !important;
+}
+
+.font-semibold {
+	font-weight: 600 !important;
 }
 
 .text-neutral-800 {
